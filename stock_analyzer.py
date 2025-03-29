@@ -2,7 +2,10 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 修改：熊猫大侠
-版本：v2.1.0
+再次修改：newhackerman 
+优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
+版本：v2.2.0
+
 许可证：MIT License
 """
 # stock_analyzer.py
@@ -19,7 +22,7 @@ import logging
 import math
 import json
 import threading
-
+from openai import OpenAI
 # 线程局部存储
 thread_local = threading.local()
 
@@ -44,7 +47,10 @@ class StockAnalyzer:
         self.openai_model = os.getenv('OPENAI_API_MODEL', 'gemini-2.0-pro-exp-02-05')
         self.function_call_model = os.getenv('FUNCTION_CALL_MODEL','gpt-4o')
         self.news_model = os.getenv('NEWS_MODEL')
-
+        self.client = OpenAI(
+            api_key=self.openai_api_key,
+            base_url="https://ark.cn-beijing.volces.com/api/v3",
+        )
         # 配置参数
         self.params = {
             'ma_periods': {'short': 5, 'medium': 20, 'long': 60},
@@ -108,7 +114,7 @@ class StockAnalyzer:
                 )
             else:
                 raise ValueError(f"不支持的市场类型: {market_type}")
-
+            # print(df)
             # 重命名列名以匹配分析需求
             df = df.rename(columns={
                 "日期": "date",
@@ -996,6 +1002,7 @@ class StockAnalyzer:
                             seen_titles.add(title)
                             unique_news.append(item)
 
+
                     unique_industry_news = []
                     seen_industry_titles = set()
                     for item in industry_news:
@@ -1049,9 +1056,9 @@ class StockAnalyzer:
             def call_api():
                 try:
                     messages = [{"role": "user", "content": query}]
-                    
+
                     # 第一步：调用模型，让它决定使用工具
-                    response = openai.ChatCompletion.create(
+                    response = self.client.chat.completions.create(
                         model=self.function_call_model,
                         messages=messages,
                         tools=tools,
@@ -1061,36 +1068,39 @@ class StockAnalyzer:
                         stream=False,
                         timeout=120
                     )
-                    
+
                     # 检查是否有工具调用
-                    message = response["choices"][0]["message"]
-                    
-                    if "tool_calls" in message:
+                    message = response.choices[0].message
+                    # print(f'message:{message}')
+                    # print(type(message), message)
+                    if "tool_calls" in str(message):
                         # 处理工具调用
-                        tool_calls = message["tool_calls"]
-                        
+                        tool_calls = response.choices[0].message.tool_calls
+
                         # 准备新的消息列表，包含工具调用结果
                         messages.append(message)  # 添加助手的消息
-                        
+                        # print(f"tool_calls:{tool_calls}")
                         for tool_call in tool_calls:
-                            function_name = tool_call["function"]["name"]
-                            function_args = json.loads(tool_call["function"]["arguments"])
-                            
+                            # print(tool_call)
+                            function_name = tool_call.function.name
+                            function_args = json.loads(tool_call.function.arguments)
+
                             # 执行搜索
                             if function_name == "search_news":
                                 search_query = function_args.get("query", f"{stock_name} {stock_code} 新闻")
+                                # print(f"search_query:{search_query}")
                                 function_response = search_news(search_query)
-                                
+                                # print(f"function_response:{function_response}")
                                 # 添加工具响应到消息
                                 messages.append({
-                                    "tool_call_id": tool_call["id"],
+                                    "tool_call_id": tool_call.id,
                                     "role": "tool",
                                     "name": function_name,
                                     "content": json.dumps(function_response, ensure_ascii=False)
                                 })
-                        
+
                         # 第二步：让模型处理搜索结果并生成最终响应
-                        second_response = openai.ChatCompletion.create(
+                        second_response =self.client.chat.completions.create(
                             model=self.news_model,
                             messages=messages,
                             temperature=0.7,
@@ -1098,12 +1108,13 @@ class StockAnalyzer:
                             stream=False,
                             timeout=120
                         )
-                        
-                        result_queue.put(second_response)
+                        # print(f'second_response :{second_response.choices[0].message}')
+                        result_queue.put(second_response.choices[0].message)
                     else:
                         # 如果模型没有选择使用工具，直接使用第一次响应
+                        print('没有调用ai搜索工具')
                         result_queue.put(response)
-                        
+
                 except Exception as e:
                     result_queue.put(e)
 
@@ -1111,7 +1122,7 @@ class StockAnalyzer:
             api_thread = threading.Thread(target=call_api)
             api_thread.daemon = True
             api_thread.start()
-
+            news_data = {}
             # 等待结果，最多等待240秒
             try:
                 result = result_queue.get(timeout=240)
@@ -1120,48 +1131,50 @@ class StockAnalyzer:
                 if isinstance(result, Exception):
                     self.logger.error(f"获取新闻API调用失败: {str(result)}")
                     raise result
+                else:
+                    # 提取回复内容
+                    # print(f'最终返回的结果result：{result}')
+                    # content = result["choices"][0]["message"]["content"].strip()
+                    content = result.content
 
-                # 提取回复内容
-                content = result["choices"][0]["message"]["content"].strip()
+                    # 尝试解析JSON，但如果失败则保留原始内容
+                    try:
+                        # 尝试直接解析JSON
+                        news_data = json.loads(content)
+                    except json.JSONDecodeError:
+                        # 如果直接解析失败，尝试提取JSON部分
+                        import re
+                        json_match = re.search(r'```json\s*([\s\S]*?)\s*```', content)
+                        if json_match:
+                            json_str = json_match.group(1)
+                            news_data = json.loads(json_str)
+                            self.json_match_flag = True
+                        else:
+                            # 如果仍然无法提取JSON，尝试直接返回响应
+                            self.logger.info(f"无法提取JSON，直接返回响应{content}")
+                            self.json_match_flag = False
+                            news_data = {}
+                            news_data['original_content'] = content
 
-                # 尝试解析JSON，但如果失败则保留原始内容
-                try:
-                    # 尝试直接解析JSON
-                    news_data = json.loads(content)
-                except json.JSONDecodeError:
-                    # 如果直接解析失败，尝试提取JSON部分
-                    import re
-                    json_match = re.search(r'```json\s*([\s\S]*?)\s*```', content)
-                    if json_match:
-                        json_str = json_match.group(1)
-                        news_data = json.loads(json_str)
-                        self.json_match_flag = True
-                    else:
-                        # 如果仍然无法提取JSON，尝试直接返回响应
-                        self.logger.info(f"无法提取JSON，直接返回响应{content}")
-                        self.json_match_flag = False
+                    # 确保数据结构完整
+                    if not isinstance(news_data, dict):
                         news_data = {}
-                        news_data['original_content'] = content
-
-                # 确保数据结构完整
-                if not isinstance(news_data, dict):
-                    news_data = {}
                 
-                for key in ['news', 'announcements', 'industry_news']:
-                    if key not in news_data:
-                        news_data[key] = []
-                
-                if 'market_sentiment' not in news_data:
-                    news_data['market_sentiment'] = 'neutral'
+                    for key in ['news', 'announcements', 'industry_news']:
+                        if key not in news_data:
+                            news_data[key] = []
 
-                # 添加时间戳
-                news_data['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    if 'market_sentiment' not in news_data:
+                        news_data['market_sentiment'] = 'neutral'
 
-                # 缓存结果
-                self.data_cache[cache_key] = {
-                    'data': news_data,
-                    'timestamp': datetime.now()
-                }
+                    # 添加时间戳
+                    news_data['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+                    # 缓存结果
+                    self.data_cache[cache_key] = {
+                        'data': news_data,
+                        'timestamp': datetime.now()
+                    }
 
                 return news_data
 
@@ -1209,13 +1222,13 @@ class StockAnalyzer:
             AI生成的分析报告文本
         """
         try:
-            import openai
+            # import openai
             import threading
             import queue
 
             # 设置API密钥和基础URL
-            openai.api_key = self.openai_api_key
-            openai.api_base = self.openai_api_url
+            # openai.api_key = self.openai_api_key
+            # openai.api_base = self.openai_api_url
 
             # 1. 获取最近K线数据
             recent_data = df.tail(20).to_dict('records')
@@ -1241,7 +1254,7 @@ class StockAnalyzer:
             # 5. 获取相关新闻和实时信息 - 整合get_stock_news
             self.logger.info(f"获取 {stock_code} 的相关新闻和市场信息")
             news_data = self.get_stock_news(stock_code, market_type)
-
+            print(f"news_data:{news_data}")
             # 6. 评分分解
             score = self.calculate_score(df, market_type)
             score_details = getattr(self, 'score_details', {'total': score})
@@ -1257,13 +1270,13 @@ class StockAnalyzer:
 
             # 8. 构建更全面的prompt
             prompt = f"""作为专业的股票分析师，请对{stock_name}({stock_code})进行全面分析:
-
+    
     1. 基本信息:
        - 股票名称: {stock_name}
        - 股票代码: {stock_code}
        - 行业: {industry}
        - 市场类型: {"A股" if market_type == 'A' else "港股" if market_type == 'HK' else "美股"}
-
+    
     2. 技术指标摘要:
        - 趋势: {technical_summary['trend']}
        - 波动率: {technical_summary['volatility']}
@@ -1271,52 +1284,52 @@ class StockAnalyzer:
        - RSI: {technical_summary['rsi_level']:.2f}
        - MACD信号: {technical_summary['macd_signal']}
        - 布林带位置: {technical_summary['bb_position']}
-
+    
     3. 支撑与压力位:
        - 短期支撑位: {', '.join([str(level) for level in sr_levels['support_levels']['short_term']])}
        - 中期支撑位: {', '.join([str(level) for level in sr_levels['support_levels']['medium_term']])}
        - 短期压力位: {', '.join([str(level) for level in sr_levels['resistance_levels']['short_term']])}
        - 中期压力位: {', '.join([str(level) for level in sr_levels['resistance_levels']['medium_term']])}
-
+    
     4. 综合评分: {score_details['total']}分
        - 趋势评分: {score_details.get('trend', 0)}
        - 波动率评分: {score_details.get('volatility', 0)}
        - 技术指标评分: {score_details.get('technical', 0)}
        - 成交量评分: {score_details.get('volume', 0)}
        - 动量评分: {score_details.get('momentum', 0)}
-
+    
     5. 投资建议: {recommendation}"""
 
             # 检查是否有JSON解析失败的情况
             if hasattr(self, 'json_match_flag') and not self.json_match_flag and 'original_content' in news_data:
                 # 如果JSON解析失败，直接使用原始内容
                 prompt += f"""
-
+    
     6. 相关新闻和市场信息:
     {news_data.get('original_content', '无法获取相关新闻')}
     """
             else:
                 # 正常情况下使用格式化的新闻数据
                 prompt += f"""
-
+    
     6. 近期相关新闻:
     {self._format_news_for_prompt(news_data.get('news', []))}
-
+    
     7. 公司公告:
     {self._format_announcements_for_prompt(news_data.get('announcements', []))}
-
+    
     8. 行业动态:
     {self._format_news_for_prompt(news_data.get('industry_news', []))}
-
+    
     9. 市场情绪: {news_data.get('market_sentiment', 'neutral')}
-
+    
     请提供以下内容:
     1. 技术面分析 - 详细分析价格走势、支撑压力位、主要技术指标的信号
     2. 行业和市场环境 - 结合新闻和行业动态分析公司所处环境
     3. 风险因素 - 识别潜在风险点
     4. 具体交易策略 - 给出明确的买入/卖出建议，包括入场点、止损位和目标价位
     5. 短期(1周)、中期(1-3个月)和长期(半年)展望
-
+    
     请基于数据给出客观分析，不要过度乐观或悲观。分析应该包含具体数据和百分比，避免模糊表述。
     """
 
@@ -1327,7 +1340,7 @@ class StockAnalyzer:
 
             def call_api():
                 try:
-                    response = openai.ChatCompletion.create(
+                    response = self.client.chat.completions.create(
                         model=self.openai_model,
                         messages=messages,
                         temperature=0.8,
@@ -1346,20 +1359,24 @@ class StockAnalyzer:
 
             # 等待结果，最多等待240秒
             try:
-                result = result_queue.get(timeout=240)
-
+                result = result_queue.get(timeout=300)
+                # print(f"AI分析结果：{result}")
                 # 检查结果是否为异常
                 if isinstance(result, Exception):
+                    self.logger.error(f"AI分析发生错误: {str(result)}")
                     raise result
-
                 # 提取助理回复
-                assistant_reply = result["choices"][0]["message"]["content"].strip()
+                # print("提取ai分析结果：")
+                # for i in result.choices:
+                #     print(result.choices[i])
+                assistant_reply = result.choices[0].message.content
+                # print("提取ai回复:",assistant_reply)
                 return assistant_reply
 
             except queue.Empty:
                 return "AI分析超时，无法获取分析结果。请稍后再试。"
-            except Exception as e:
-                return f"AI分析过程中发生错误: {str(e)}"
+        except Exception as e:
+            return f"AI分析过程中发生错误: {str(e)}"
 
         except Exception as e:
             self.logger.error(f"AI分析发生错误: {str(e)}")
@@ -1505,51 +1522,7 @@ class StockAnalyzer:
 
         return recommendations
 
-    # def quick_analyze_stock(self, stock_code, market_type='A'):
-    #     """快速分析股票，用于市场扫描"""
-    #     try:
-    #         # 获取股票数据
-    #         df = self.get_stock_data(stock_code, market_type)
 
-    #         # 计算技术指标
-    #         df = self.calculate_indicators(df)
-
-    #         # 简化评分计算
-    #         score = self.calculate_score(df)
-
-    #         # 获取最新数据
-    #         latest = df.iloc[-1]
-    #         prev = df.iloc[-2] if len(df) > 1 else latest
-
-    #         # 尝试获取股票名称和行业
-    #         try:
-    #             stock_info = self.get_stock_info(stock_code)
-    #             stock_name = stock_info.get('股票名称', '未知')
-    #             industry = stock_info.get('行业', '未知')
-    #         except:
-    #             stock_name = '未知'
-    #             industry = '未知'
-
-    #         # 生成简化报告
-    #         report = {
-    #             'stock_code': stock_code,
-    #             'stock_name': stock_name,
-    #             'industry': industry,
-    #             'analysis_date': datetime.now().strftime('%Y-%m-%d'),
-    #             'score': score,
-    #             'price': float(latest['close']),
-    #             'price_change': float((latest['close'] - prev['close']) / prev['close'] * 100),
-    #             'ma_trend': 'UP' if latest['MA5'] > latest['MA20'] else 'DOWN',
-    #             'rsi': float(latest['RSI']),
-    #             'macd_signal': 'BUY' if latest['MACD'] > latest['Signal'] else 'SELL',
-    #             'volume_status': '放量' if latest['Volume_Ratio'] > 1.5 else '平量',
-    #             'recommendation': self.get_recommendation(score)
-    #         }
-
-    #         return report
-    #     except Exception as e:
-    #         self.logger.error(f"快速分析股票 {stock_code} 时出错: {str(e)}")
-    #         raise
 
     def quick_analyze_stock(self, stock_code, market_type='A'):
         """快速分析股票，用于市场扫描"""
@@ -1853,141 +1826,141 @@ class StockAnalyzer:
 
     def perform_enhanced_analysis(self, stock_code, market_type='A'):
         """执行增强版分析"""
-        try:
-            # 记录开始时间，便于性能分析
-            start_time = time.time()
-            self.logger.info(f"开始执行股票 {stock_code} 的增强分析")
+        # try:
+        # 记录开始时间，便于性能分析
+        start_time = time.time()
+        self.logger.info(f"开始执行股票 {stock_code} 的增强分析")
 
-            # 获取股票数据
-            df = self.get_stock_data(stock_code, market_type)
-            data_time = time.time()
-            self.logger.info(f"获取股票数据耗时: {data_time - start_time:.2f}秒")
+        # 获取股票数据
+        df = self.get_stock_data(stock_code, market_type)
+        data_time = time.time()
+        self.logger.info(f"获取股票数据耗时: {data_time - start_time:.2f}秒")
 
-            # 计算技术指标
-            df = self.calculate_indicators(df)
-            indicator_time = time.time()
-            self.logger.info(f"计算技术指标耗时: {indicator_time - data_time:.2f}秒")
+        # 计算技术指标
+        df = self.calculate_indicators(df)
+        indicator_time = time.time()
+        self.logger.info(f"计算技术指标耗时: {indicator_time - data_time:.2f}秒")
 
-            # 获取最新数据
-            latest = df.iloc[-1]
-            prev = df.iloc[-2] if len(df) > 1 else latest
+        # 获取最新数据
+        latest = df.iloc[-1]
+        prev = df.iloc[-2] if len(df) > 1 else latest
 
-            # 获取支撑压力位
-            sr_levels = self.identify_support_resistance(df)
+        # 获取支撑压力位
+        sr_levels = self.identify_support_resistance(df)
 
-            # 计算技术面评分
-            technical_score = self.calculate_technical_score(df)
+        # 计算技术面评分
+        technical_score = self.calculate_technical_score(df)
 
-            # 获取股票信息
-            stock_info = self.get_stock_info(stock_code)
+        # 获取股票信息
+        stock_info = self.get_stock_info(stock_code)
 
-            # 确保technical_score包含必要的字段
-            if 'total' not in technical_score:
-                technical_score['total'] = 0
+        # 确保technical_score包含必要的字段
+        if 'total' not in technical_score:
+            technical_score['total'] = 0
 
-            # 生成增强版报告
-            enhanced_report = {
-                'basic_info': {
-                    'stock_code': stock_code,
-                    'stock_name': stock_info.get('股票名称', '未知'),
-                    'industry': stock_info.get('行业', '未知'),
-                    'analysis_date': datetime.now().strftime('%Y-%m-%d')
-                },
-                'price_data': {
-                    'current_price': float(latest['close']),  # 确保是Python原生类型
-                    'price_change': float((latest['close'] - prev['close']) / prev['close'] * 100),
-                    'price_change_value': float(latest['close'] - prev['close'])
-                },
-                'technical_analysis': {
-                    'trend': {
-                        'ma_trend': 'UP' if latest['MA5'] > latest['MA20'] else 'DOWN',
-                        'ma_status': "多头排列" if latest['MA5'] > latest['MA20'] > latest['MA60'] else
-                        "空头排列" if latest['MA5'] < latest['MA20'] < latest['MA60'] else
-                        "交叉状态",
-                        'ma_values': {
-                            'ma5': float(latest['MA5']),
-                            'ma20': float(latest['MA20']),
-                            'ma60': float(latest['MA60'])
-                        }
-                    },
-                    'indicators': {
-                        # 确保所有指标都存在并是原生类型
-                        'rsi': float(latest['RSI']) if 'RSI' in latest else 50.0,
-                        'macd': float(latest['MACD']) if 'MACD' in latest else 0.0,
-                        'macd_signal': float(latest['Signal']) if 'Signal' in latest else 0.0,
-                        'macd_histogram': float(latest['MACD_hist']) if 'MACD_hist' in latest else 0.0,
-                        'volatility': float(latest['Volatility']) if 'Volatility' in latest else 0.0
-                    },
-                    'volume': {
-                        'current_volume': float(latest['volume']) if 'volume' in latest else 0.0,
-                        'volume_ratio': float(latest['Volume_Ratio']) if 'Volume_Ratio' in latest else 1.0,
-                        'volume_status': '放量' if 'Volume_Ratio' in latest and latest['Volume_Ratio'] > 1.5 else '平量'
-                    },
-                    'support_resistance': sr_levels
-                },
-                'scores': technical_score,
-                'recommendation': {
-                    'action': self.get_recommendation(technical_score['total']),
-                    'key_points': []
-                },
-                'ai_analysis': self.get_ai_analysis(df, stock_code)
-            }
-
-            # 最后检查并修复报告结构
-            self._validate_and_fix_report(enhanced_report)
-
-            # 在函数结束时记录总耗时
-            end_time = time.time()
-            self.logger.info(f"执行增强分析总耗时: {end_time - start_time:.2f}秒")
-
-            return enhanced_report
-
-        except Exception as e:
-            self.logger.error(f"执行增强版分析时出错: {str(e)}")
-            self.logger.error(traceback.format_exc())
-
-            # 返回基础错误报告
-            return {
-                'basic_info': {
-                    'stock_code': stock_code,
-                    'stock_name': '分析失败',
-                    'industry': '未知',
-                    'analysis_date': datetime.now().strftime('%Y-%m-%d')
-                },
-                'price_data': {
-                    'current_price': 0.0,
-                    'price_change': 0.0,
-                    'price_change_value': 0.0
-                },
-                'technical_analysis': {
-                    'trend': {
-                        'ma_trend': 'UNKNOWN',
-                        'ma_status': '未知',
-                        'ma_values': {'ma5': 0.0, 'ma20': 0.0, 'ma60': 0.0}
-                    },
-                    'indicators': {
-                        'rsi': 50.0,
-                        'macd': 0.0,
-                        'macd_signal': 0.0,
-                        'macd_histogram': 0.0,
-                        'volatility': 0.0
-                    },
-                    'volume': {
-                        'current_volume': 0.0,
-                        'volume_ratio': 0.0,
-                        'volume_status': 'NORMAL'
-                    },
-                    'support_resistance': {
-                        'support_levels': {'short_term': [], 'medium_term': []},
-                        'resistance_levels': {'short_term': [], 'medium_term': []}
+        # 生成增强版报告
+        enhanced_report = {
+            'basic_info': {
+                'stock_code': stock_code,
+                'stock_name': stock_info.get('股票名称', '未知'),
+                'industry': stock_info.get('行业', '未知'),
+                'analysis_date': datetime.now().strftime('%Y-%m-%d')
+            },
+            'price_data': {
+                'current_price': float(latest['close']),  # 确保是Python原生类型
+                'price_change': float((latest['close'] - prev['close']) / prev['close'] * 100),
+                'price_change_value': float(latest['close'] - prev['close'])
+            },
+            'technical_analysis': {
+                'trend': {
+                    'ma_trend': 'UP' if latest['MA5'] > latest['MA20'] else 'DOWN',
+                    'ma_status': "多头排列" if latest['MA5'] > latest['MA20'] > latest['MA60'] else
+                    "空头排列" if latest['MA5'] < latest['MA20'] < latest['MA60'] else
+                    "交叉状态",
+                    'ma_values': {
+                        'ma5': float(latest['MA5']),
+                        'ma20': float(latest['MA20']),
+                        'ma60': float(latest['MA60'])
                     }
                 },
-                'scores': {'total': 0},
-                'recommendation': {'action': '分析出错，无法提供建议'},
-                'ai_analysis': f"分析过程中出错: {str(e)}"
-            }
+                'indicators': {
+                    # 确保所有指标都存在并是原生类型
+                    'rsi': float(latest['RSI']) if 'RSI' in latest else 50.0,
+                    'macd': float(latest['MACD']) if 'MACD' in latest else 0.0,
+                    'macd_signal': float(latest['Signal']) if 'Signal' in latest else 0.0,
+                    'macd_histogram': float(latest['MACD_hist']) if 'MACD_hist' in latest else 0.0,
+                    'volatility': float(latest['Volatility']) if 'Volatility' in latest else 0.0
+                },
+                'volume': {
+                    'current_volume': float(latest['volume']) if 'volume' in latest else 0.0,
+                    'volume_ratio': float(latest['Volume_Ratio']) if 'Volume_Ratio' in latest else 1.0,
+                    'volume_status': '放量' if 'Volume_Ratio' in latest and latest['Volume_Ratio'] > 1.5 else '平量'
+                },
+                'support_resistance': sr_levels
+            },
+            'scores': technical_score,
+            'recommendation': {
+                'action': self.get_recommendation(technical_score['total']),
+                'key_points': []
+            },
+            'ai_analysis': self.get_ai_analysis(df, stock_code)
+        }
+        print(f"增强版报告：{enhanced_report}")
+        # 最后检查并修复报告结构
+        self._validate_and_fix_report(enhanced_report)
 
-            return error_report
+        # 在函数结束时记录总耗时
+        end_time = time.time()
+        self.logger.info(f"执行增强分析总耗时: {end_time - start_time:.2f}秒")
+
+        return enhanced_report
+
+        # except Exception as e:
+        #     self.logger.error(f"执行增强版分析时出错: {str(e)}")
+        #     self.logger.error(traceback.format_exc())
+        #
+        #     # 返回基础错误报告
+        #     return {
+        #         'basic_info': {
+        #             'stock_code': stock_code,
+        #             'stock_name': '分析失败',
+        #             'industry': '未知',
+        #             'analysis_date': datetime.now().strftime('%Y-%m-%d')
+        #         },
+        #         'price_data': {
+        #             'current_price': 0.0,
+        #             'price_change': 0.0,
+        #             'price_change_value': 0.0
+        #         },
+        #         'technical_analysis': {
+        #             'trend': {
+        #                 'ma_trend': 'UNKNOWN',
+        #                 'ma_status': '未知',
+        #                 'ma_values': {'ma5': 0.0, 'ma20': 0.0, 'ma60': 0.0}
+        #             },
+        #             'indicators': {
+        #                 'rsi': 50.0,
+        #                 'macd': 0.0,
+        #                 'macd_signal': 0.0,
+        #                 'macd_histogram': 0.0,
+        #                 'volatility': 0.0
+        #             },
+        #             'volume': {
+        #                 'current_volume': 0.0,
+        #                 'volume_ratio': 0.0,
+        #                 'volume_status': 'NORMAL'
+        #             },
+        #             'support_resistance': {
+        #                 'support_levels': {'short_term': [], 'medium_term': []},
+        #                 'resistance_levels': {'short_term': [], 'medium_term': []}
+        #             }
+        #         },
+        #         'scores': {'total': 0},
+        #         'recommendation': {'action': '分析出错，无法提供建议'},
+        #         'ai_analysis': f"分析过程中出错: {str(e)}"
+        #     }
+        #
+        #     return error_report
 
     # 添加一个辅助方法确保报告结构完整
     def _validate_and_fix_report(self, report):
@@ -2023,3 +1996,8 @@ class StockAnalyzer:
                     tech['indicators'][key] = float(value)
                 except (TypeError, ValueError):
                     tech['indicators'][key] = 0.0
+if __name__ == '__main__':
+    stockquote=StockAnalyzer()
+    stock_code='000498'
+    stockquote.get_stock_data(stock_code)
+    stockquote.get_stock_news(stock_code, 'A')
