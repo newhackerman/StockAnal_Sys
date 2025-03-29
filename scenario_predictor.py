@@ -2,7 +2,9 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 开发者：熊猫大侠
-版本：v2.1.0
+再次修改：newhackerman 
+优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
+版本：v2.2.0
 许可证：MIT License
 """
 # scenario_predictor.py
@@ -10,7 +12,7 @@ import os
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-import openai
+from openai import OpenAI
 import logging
 from logging.handlers import RotatingFileHandler
 """
@@ -138,8 +140,8 @@ class ScenarioPredictor:
     def _generate_ai_analysis(self, stock_code, stock_info, df, scenarios):
         """使用AI生成各情景的分析说明，包含风险和机会因素"""
         try:
-            openai.api_key = self.openai_api_key
-            openai.api_base = self.openai_api_url
+            # openai.api_key = self.openai_api_key
+            # openai.api_base = self.openai_api_url
     
             # 提取关键数据
             current_price = df.iloc[-1]['close']
@@ -177,7 +179,7 @@ class ScenarioPredictor:
     """
     
             # 调用AI API
-            response = openai.ChatCompletion.create(
+            response = self.analyzer.client.chat.completions.create(
                 model=self.openai_model,
                 messages=[
                     {"role": "system", "content": "你是专业的股票分析师，擅长技术分析和情景预测。"},
