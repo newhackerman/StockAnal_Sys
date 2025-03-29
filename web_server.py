@@ -2,7 +2,8 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 修改：熊猫大侠
-版本：v2.1.0
+修改：newhackerman 优化，openai 全局使用使用一个初始化动作，支持最新版openai
+版本：v2.2.0
 """
 # web_server.py
 
@@ -34,10 +35,11 @@ from stock_qa import StockQA
 from risk_monitor import RiskMonitor
 from index_industry_analyzer import IndexIndustryAnalyzer
 from news_fetcher import news_fetcher, start_news_scheduler
-
+from database import  init_db
 # 加载环境变量
 load_dotenv()
-
+store={}
+maxstocknum=1000
 # 检查是否需要初始化数据库
 if USE_DATABASE:
     init_db()
@@ -91,6 +93,7 @@ if 'analyzer' not in globals():
 # 初始化模块实例
 fundamental_analyzer = FundamentalAnalyzer()
 capital_flow_analyzer = CapitalFlowAnalyzer()
+print('开始AI分析')
 scenario_predictor = ScenarioPredictor(analyzer, os.getenv('OPENAI_API_KEY'), os.getenv('OPENAI_API_MODEL'))
 stock_qa = StockQA(analyzer, os.getenv('OPENAI_API_KEY'), os.getenv('OPENAI_API_MODEL'))
 risk_monitor = RiskMonitor(analyzer)
@@ -605,20 +608,20 @@ def start_stock_analysis():
 
             # 启动后台线程执行分析
             def run_analysis():
-                try:
-                    update_task_status('stock_analysis', task_id, TASK_RUNNING, progress=10)
+                # try:
+                update_task_status('stock_analysis', task_id, TASK_RUNNING, progress=10)
 
-                    # 执行分析
-                    result = analyzer.perform_enhanced_analysis(stock_code, market_type)
+                # 执行分析
+                result = analyzer.perform_enhanced_analysis(stock_code, market_type)
 
-                    # 更新任务状态为完成
-                    update_task_status('stock_analysis', task_id, TASK_COMPLETED, progress=100, result=result)
-                    app.logger.info(f"分析任务 {task_id} 完成")
+                # 更新任务状态为完成
+                update_task_status('stock_analysis', task_id, TASK_COMPLETED, progress=100, result=result)
+                app.logger.info(f"分析任务 {task_id} 完成")
 
-                except Exception as e:
-                    app.logger.error(f"分析任务 {task_id} 失败: {str(e)}")
-                    app.logger.error(traceback.format_exc())
-                    update_task_status('stock_analysis', task_id, TASK_FAILED, error=str(e))
+                # except Exception as e:
+                #     app.logger.error(f"分析任务 {task_id} 失败: {str(e)}")
+                #     app.logger.error(traceback.format_exc())
+                #     update_task_status('stock_analysis', task_id, TASK_FAILED, error=str(e))
 
             # 启动后台线程
             thread = threading.Thread(target=run_analysis)
@@ -855,61 +858,6 @@ def get_stock_data():
         app.logger.error(traceback.format_exc())
         return custom_jsonify({'error': str(e)}), 500
 
-
-# @app.route('/api/market_scan', methods=['POST'])
-# def api_market_scan():
-#     try:
-#         data = request.json
-#         stock_list = data.get('stock_list', [])
-#         min_score = data.get('min_score', 60)
-#         market_type = data.get('market_type', 'A')
-
-#         if not stock_list:
-#             return jsonify({'error': '请提供股票列表'}), 400
-
-#         # 限制股票数量，避免过长处理时间
-#         if len(stock_list) > 100:
-#             app.logger.warning(f"股票列表过长 ({len(stock_list)}只)，截取前100只")
-#             stock_list = stock_list[:100]
-
-#         # 执行市场扫描
-#         app.logger.info(f"开始扫描 {len(stock_list)} 只股票，最低分数: {min_score}")
-
-#         # 使用线程池优化处理
-#         results = []
-#         max_workers = min(10, len(stock_list))  # 最多10个工作线程
-
-#         # 设置较长的超时时间
-#         timeout = 300  # 5分钟
-
-#         def scan_thread():
-#             try:
-#                 return analyzer.scan_market(stock_list, min_score, market_type)
-#             except Exception as e:
-#                 app.logger.error(f"扫描线程出错: {str(e)}")
-#                 return []
-
-#         thread = threading.Thread(target=lambda: results.append(scan_thread()))
-#         thread.start()
-#         thread.join(timeout)
-
-#         if thread.is_alive():
-#             app.logger.error(f"市场扫描超时，已扫描 {len(stock_list)} 只股票超过 {timeout} 秒")
-#             return custom_jsonify({'error': '扫描超时，请减少股票数量或稍后再试'}), 504
-
-#         if not results or not results[0]:
-#             app.logger.warning("扫描结果为空")
-#             return custom_jsonify({'results': []})
-
-#         scan_results = results[0]
-#         app.logger.info(f"扫描完成，找到 {len(scan_results)} 只符合条件的股票")
-
-#         # 使用自定义JSON格式处理NumPy数据类型
-#         return custom_jsonify({'results': scan_results})
-#     except Exception as e:
-#         app.logger.error(f"执行市场扫描时出错: {traceback.format_exc()}")
-#         return custom_jsonify({'error': str(e)}), 500
-
 @app.route('/api/start_market_scan', methods=['POST'])
 def start_market_scan():
     """启动市场扫描任务"""
@@ -923,9 +871,9 @@ def start_market_scan():
             return jsonify({'error': '请提供股票列表'}), 400
 
         # 限制股票数量，避免过长处理时间
-        if len(stock_list) > 100:
-            app.logger.warning(f"股票列表过长 ({len(stock_list)}只)，截取前100只")
-            stock_list = stock_list[:100]
+        if len(stock_list) > maxstocknum:
+            app.logger.warning(f"股票列表过长 ({len(stock_list)}只)，截取前{maxstocknum}只")
+            stock_list = stock_list[:maxstocknum]
 
         # 创建新任务
         task_id = generate_task_id()
@@ -1669,4 +1617,4 @@ cleaner_thread.start()
 
 if __name__ == '__main__':
     # 将 host 设置为 '0.0.0.0' 使其支持所有网络接口访问
-    app.run(host='0.0.0.0', port=8888, debug=False)
+    app.run(host='0.0.0.0', port=8899, debug=False)
