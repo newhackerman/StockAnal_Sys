@@ -102,6 +102,7 @@
 
 ```bash
 git clone https://github.com/LargeCupPanda/StockAnal_Sys.git
+cd StockAnal_Sys.git
 cd StockAnal_Sys
 ```
 
@@ -114,7 +115,7 @@ pip install -r requirements.txt
 或手动安装主要依赖：
 
 ```bash
-pip install flask pandas numpy akshare requests matplotlib python-dotenv flask-cors flask-caching
+pip install flask pandas numpy akshare requests matplotlib python-dotenv flask-cors flask-caching openai
 ```
 
 3. **创建并配置环境变量**
@@ -175,7 +176,7 @@ NEWS_MODEL=你的可联网模型
 bash start.sh start
 ```
 
-启动后，访问 `http://localhost:8888` 打开系统。
+启动后，访问 `http://localhost:8899` 打开系统。
 
 ### 其他管理命令
 
@@ -309,7 +310,7 @@ docker-compose up -d
 ## 💡 联系与支持
 
 如有问题或建议，请pr：
-
+-原作者：**熊猫大侠**
 - 项目有很多问题，基础功能可以运行起来，扩充项目代码全由AI开发，所以进展比较缓慢，请谅解。
 - 如你有好的想法或修复，欢迎提交GitHub Issue
 
