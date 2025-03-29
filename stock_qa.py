@@ -2,7 +2,9 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 开发者：熊猫大侠
-版本：v2.1.0
+再次修改：newhackerman 
+优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
+版本：v2.2.0
 许可证：MIT License
 
 stock_qa.py - 提供股票相关问题的智能问答功能，支持联网搜索实时信息和多轮对话
@@ -11,7 +13,7 @@ stock_qa.py - 提供股票相关问题的智能问答功能，支持联网搜索
 import os
 import json
 import traceback
-import openai
+from openai import OpenAI
 from urllib.parse import urlparse
 from datetime import datetime
 
@@ -20,13 +22,20 @@ class StockQA:
     def __init__(self, analyzer, openai_api_key=None, openai_model=None):
         self.analyzer = analyzer
         self.openai_api_key = os.getenv('OPENAI_API_KEY', openai_api_key)
-        self.openai_api_url = os.getenv('OPENAI_API_URL', 'https://api.openai.com/v1')
+        self.openai_api_url = os.getenv('OPENAI_API_URL', 'https://api-7d76.onrender.com')
         self.openai_model = os.getenv('OPENAI_API_MODEL', openai_model or 'gpt-4o')
         self.function_call_model = os.getenv('FUNCTION_CALL_MODEL', openai_model or 'gpt-4o')
         self.serp_api_key = os.getenv('SERP_API_KEY')
         self.tavily_api_key = os.getenv('TAVILY_API_KEY')
         self.max_qa_rounds = int(os.getenv('MAX_QA', '10'))  # 默认保留10轮对话
-        
+        # self.client = OpenAI(
+        #     api_key=self.openai_api_key,
+        #     base_url="https://ark.cn-beijing.volces.com/api/v3",
+        # )
+        # self.client= OpenAI(
+        #     api_key=self.openai_api_key,
+        #     base_url=self.openai_api_url,
+        #  )
         # 对话历史存储 - 使用字典存储不同股票的对话历史
         self.conversation_history = {}
         
@@ -128,24 +137,32 @@ class StockQA:
             messages.append({"role": "user", "content": question})
             
             # 调用AI API
-            openai.api_key = self.openai_api_key
-            openai.api_base = self.openai_api_url
-
+            # openai.api_key = self.openai_api_key
+            # openai.api_base = self.openai_api_url
+            # print(openai.api_key,openai.api_base)
             # 第一步：调用模型，让它决定是否使用工具
-            first_response = openai.ChatCompletion.create(
-                model=self.function_call_model,
-                messages=messages,
+            # first_response = self.client.completions.create(
+            #     model=self.openai_model,
+            #     messages=messages,
+            #     tools=tools,
+            #     tool_choice="auto",
+            #     temperature=0.7,
+            #     stream=True
+            # )
+            first_response = self.analyzer.client.chat.completions.create(
+                model=self.openai_model,  # your model endpoint ID
+                messages=messages ,
                 tools=tools,
                 tool_choice="auto",
-                temperature=0.7
+                temperature=0.7,
             )
 
             # 获取初始响应
             assistant_message = first_response.choices[0].message
             response_content = assistant_message.content
             used_search_tool = False
-            
-            # 检查是否需要使用工具调用
+
+                # 检查是否需要使用工具调用
             if hasattr(assistant_message, 'tool_calls') and assistant_message.tool_calls:
                 used_search_tool = True
                 # 创建新的消息列表，包含工具调用
@@ -178,7 +195,7 @@ class StockQA:
                         })
                 
                 # 第二步：让模型根据工具调用结果生成最终响应
-                second_response = openai.ChatCompletion.create(
+                second_response = self.analyzer.client.completions.create(
                     model=self.openai_model,
                     messages=tool_messages,
                     temperature=0.7
