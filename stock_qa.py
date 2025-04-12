@@ -2,9 +2,9 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 开发者：熊猫大侠
-再次修改：newhackerman 
-优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
-版本：v2.2.0
+再次修改：newhackerman
+优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai，修复模型调用错误
+版本：v2.2.1
 许可证：MIT License
 
 stock_qa.py - 提供股票相关问题的智能问答功能，支持联网搜索实时信息和多轮对话
@@ -195,7 +195,7 @@ class StockQA:
                         })
                 
                 # 第二步：让模型根据工具调用结果生成最终响应
-                second_response = self.analyzer.client.completions.create(
+                second_response = self.analyzer.client.chat.completions.create(
                     model=self.openai_model,
                     messages=tool_messages,
                     temperature=0.7
