@@ -2,10 +2,9 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 修改：熊猫大侠
-再次修改：newhackerman 
+再次修改：newhackerman
 优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
 版本：v2.2.0
-
 许可证：MIT License
 """
 # stock_analyzer.py
@@ -22,6 +21,7 @@ import logging
 import math
 import json
 import threading
+from get_quote import *
 from openai import OpenAI
 # 线程局部存储
 thread_local = threading.local()
@@ -68,7 +68,7 @@ class StockAnalyzer:
         self.json_match_flag = True
     def get_stock_data(self, stock_code, market_type='A', start_date=None, end_date=None):
         """获取股票数据"""
-        import akshare as ak
+        # import akshare as ak
 
         self.logger.info(f"开始获取股票 {stock_code} 数据，市场类型: {market_type}")
 
@@ -87,31 +87,28 @@ class StockAnalyzer:
             return result
 
         if start_date is None:
-            start_date = (datetime.now() - timedelta(days=365)).strftime('%Y%m%d')
+            start_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
         if end_date is None:
-            end_date = datetime.now().strftime('%Y%m%d')
+            end_date = datetime.now().strftime('%Y-%m-%d')
+        if len(start_date)<10:
+            start_date=str(start_date)[0:4]+'-'+str(start_date)[4:6]+'-'+str(start_date)[6:8]
 
+        if len(end_date)<10:
+            end_date=str(end_date)[0:4]+'-'+str(end_date)[4:6]+'-'+str(end_date)[6:8]
+            # print(end_date)
         try:
             # 根据市场类型获取数据
             if market_type == 'A':
-                df = ak.stock_zh_a_hist(
-                    symbol=stock_code,
-                    start_date=start_date,
-                    end_date=end_date,
-                    adjust="qfq"
-                )
+                df = get_quote(stock_code, start_date, end_date,market='A')
             elif market_type == 'HK':
-                df = ak.stock_hk_daily(
-                    symbol=stock_code,
-                    adjust="qfq"
-                )
+                df =get_quote(stock_code, start_date, end_date,market='hk')
+
             elif market_type == 'US':
-                df = ak.stock_us_hist(
-                    symbol=stock_code,
-                    start_date=start_date,
-                    end_date=end_date,
-                    adjust="qfq"
-                )
+                end_date= (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+                # df = get_quote(stock_code, start_date, end_date,market='us')
+                print(stock_code,start_date,end_date,market_type)
+                df=get_quote(str(stock_code).upper(), start_date, end_date, market='us')
+                # print(df)
             else:
                 raise ValueError(f"不支持的市场类型: {market_type}")
             # print(df)
@@ -122,14 +119,16 @@ class StockAnalyzer:
                 "收盘": "close",
                 "最高": "high",
                 "最低": "low",
-                "成交量": "volume",
-                "成交额": "amount"
+                "成交量": "vol",
+                '涨跌幅':'zdf'
+                # "成交额": "amount"
             })
 
             # 确保日期格式正确
             df['date'] = pd.to_datetime(df['date'])
-
+            df['volume'] = df['vol']
             # 数据类型转换
+
             numeric_columns = ['open', 'close', 'high', 'low', 'volume']
             for col in numeric_columns:
                 if col in df.columns:
@@ -138,12 +137,12 @@ class StockAnalyzer:
             # 删除空值
             df = df.dropna()
 
-            result = df.sort_values('date')
+            result = df.sort_values('date',inplace=True)
 
             # 缓存原始数据（包含datetime类型）
-            self.data_cache[cache_key] = result.copy()
+            self.data_cache[cache_key] = df.copy()
 
-            return result
+            return df
 
         except Exception as e:
             self.logger.error(f"获取股票数据失败: {e}")
@@ -1521,7 +1520,6 @@ class StockAnalyzer:
             f"市场扫描完成，共分析 {total_stocks} 只股票，找到 {len(recommendations)} 只符合条件的股票，总耗时 {total_time:.1f}秒")
 
         return recommendations
-
 
 
     def quick_analyze_stock(self, stock_code, market_type='A'):
