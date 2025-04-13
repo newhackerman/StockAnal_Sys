@@ -3,7 +3,7 @@
 智能分析系统（股票） - 股票市场数据分析系统
 修改：熊猫大侠
 再次修改：newhackerman
-优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai ，修改行情获取方式【原港美行情不及时，或出现错误的情况】
+优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
 版本：v2.2.0
 许可证：MIT License
 """
@@ -22,6 +22,7 @@ import math
 import json
 import threading
 from get_quote import *
+from get_codename import *
 from openai import OpenAI
 # 线程局部存储
 thread_local = threading.local()
@@ -69,7 +70,12 @@ class StockAnalyzer:
     def get_stock_data(self, stock_code, market_type='A', start_date=None, end_date=None):
         """获取股票数据"""
         # import akshare as ak
+        #去判断个股是否存在，不存在就返回
+        stock_code=get_codename(stock_code,'code')
 
+        if stock_code is None or stock_code=='':
+            self.logger.error(f"股票 {stock_code} 不存在，请检查股票代码或是否是最近上市股票")
+            return None
         self.logger.info(f"开始获取股票 {stock_code} 数据，市场类型: {market_type}")
 
         cache_key = f"{stock_code}_{market_type}_{start_date}_{end_date}_price"
@@ -1581,10 +1587,9 @@ class StockAnalyzer:
         cache_key = f"{stock_code}_info"
         if cache_key in self.data_cache:
             return self.data_cache[cache_key]
-
         try:
             # 获取A股股票基本信息
-            stock_info = ak.stock_individual_info_em(symbol=stock_code)
+            stock_info = allstockinfo
 
             # 修改：使用列名而不是索引访问数据
             info_dict = {}
@@ -1592,43 +1597,23 @@ class StockAnalyzer:
                 # 使用iloc安全地获取数据
                 if len(row) >= 2:  # 确保有至少两列
                     info_dict[row.iloc[0]] = row.iloc[1]
-
-            # 获取股票名称
-            try:
-                stock_name = ak.stock_info_a_code_name()
-
-                # 检查数据框是否包含预期的列
-                if '代码' in stock_name.columns and '名称' in stock_name.columns:
-                    # 尝试找到匹配的股票代码
-                    matched_stocks = stock_name[stock_name['代码'] == stock_code]
-                    if not matched_stocks.empty:
-                        name = matched_stocks['名称'].values[0]
-                    else:
-                        self.logger.warning(f"未找到股票代码 {stock_code} 的名称信息")
-                        name = "未知"
-                else:
-                    # 尝试使用不同的列名
-                    possible_code_columns = ['代码', 'code', 'symbol', '股票代码', 'stock_code']
-                    possible_name_columns = ['名称', 'name', '股票名称', 'stock_name']
-
-                    code_col = next((col for col in possible_code_columns if col in stock_name.columns), None)
-                    name_col = next((col for col in possible_name_columns if col in stock_name.columns), None)
-
-                    if code_col and name_col:
-                        matched_stocks = stock_name[stock_name[code_col] == stock_code]
-                        if not matched_stocks.empty:
-                            name = matched_stocks[name_col].values[0]
-                        else:
-                            name = "未知"
-                    else:
-                        self.logger.warning(f"股票信息DataFrame结构不符合预期: {stock_name.columns.tolist()}")
-                        name = "未知"
-            except Exception as e:
-                self.logger.error(f"获取股票名称时出错: {str(e)}")
-                name = "未知"
-
-            info_dict['股票名称'] = name
-
+            for data  in stock_info.iterrows():
+                code = data[1]['code']
+                name=data[1]['name']
+                market=data[1]['market']
+                Industry=data[1]['Industry']
+                if code == stock_code or name == stock_code:
+                    info_dict= {
+                        '股票代码': code,
+                        '股票名称': name,
+                        '行业': Industry,
+                        '地区': market
+                    }
+            # 确保基本字段存在
+            if '股票代码' not in info_dict:
+                info_dict['股票代码'] = "未知"
+            if '股票名称' not in info_dict:
+                info_dict['股票名称'] = "未知"
             # 确保基本字段存在
             if '行业' not in info_dict:
                 info_dict['行业'] = "未知"
@@ -1636,7 +1621,7 @@ class StockAnalyzer:
                 info_dict['地区'] = "未知"
 
             # 增加更多日志来调试问题
-            self.logger.info(f"获取到股票信息: 名称={name}, 行业={info_dict.get('行业', '未知')}")
+            self.logger.info(f"获取到股票信息: 名称={info_dict.get('股票名称','未知')}, 行业={info_dict.get('行业', '未知')}")
 
             self.data_cache[cache_key] = info_dict
             return info_dict
@@ -1861,7 +1846,7 @@ class StockAnalyzer:
             'basic_info': {
                 'stock_code': stock_code,
                 'stock_name': stock_info.get('股票名称', '未知'),
-                'industry': stock_info.get('行业', '未知'),
+                # 'industry': stock_info.get('行业', '未知'),
                 'analysis_date': datetime.now().strftime('%Y-%m-%d')
             },
             'price_data': {

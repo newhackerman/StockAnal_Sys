@@ -2,8 +2,10 @@
 """
 智能分析系统（股票） - 股票市场数据分析系统
 修改：熊猫大侠
-修改：newhackerman 优化，openai 全局使用使用一个初始化动作，支持最新版openai
+再次修改：newhackerman
+优化，openai 全局使用使用一个初始化动作,保持版本统一，支持最新版openai
 版本：v2.2.0
+
 """
 # web_server.py
 
@@ -813,6 +815,8 @@ def get_stock_data():
             start_date = (datetime.now() - timedelta(days=180)).strftime('%Y%m%d')
         elif period == '1y':
             start_date = (datetime.now() - timedelta(days=365)).strftime('%Y%m%d')
+        elif period == '3y':
+            start_date = (datetime.now() - timedelta(days=365*3)).strftime('%Y%m%d')
         else:
             start_date = (datetime.now() - timedelta(days=365)).strftime('%Y%m%d')
 
