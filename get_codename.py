@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
-allstockinfo=pd.read_csv(u'./data/ALL_STOCK_LIST.csv',sep=',',encoding='gbk')
+allstockinfo=pd.read_csv(u'./data/ALL_STOCK_LIST.csv',sep=',',encoding='utf8')
 codename=dict(zip(allstockinfo['code'].to_list(),allstockinfo['name'].to_list()))#提取个股代码与名称
 def get_codename(data, *kwords):
     if data is None:
@@ -30,5 +30,5 @@ def get_codename(data, *kwords):
         return stockcode
 if __name__ == '__main__':
     print(get_codename('长电科技','code'))
-    print(get_codename('600584', 'name'))
+    print(get_codename('00981', 'name'))
 
