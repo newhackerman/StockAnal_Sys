@@ -50,7 +50,7 @@ class StockAnalyzer:
         self.news_model = os.getenv('NEWS_MODEL')
         self.client = OpenAI(
             api_key=self.openai_api_key,
-            base_url="https://ark.cn-beijing.volces.com/api/v3",
+            base_url=self.openai_api_url ,
         )
         # 配置参数
         self.params = {
