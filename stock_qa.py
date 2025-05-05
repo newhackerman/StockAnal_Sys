@@ -9,7 +9,7 @@
 
 stock_qa.py - 提供股票相关问题的智能问答功能，支持联网搜索实时信息和多轮对话
 """
-
+import logging
 import os
 import json
 import traceback
@@ -28,14 +28,11 @@ class StockQA:
         self.serp_api_key = os.getenv('SERP_API_KEY')
         self.tavily_api_key = os.getenv('TAVILY_API_KEY')
         self.max_qa_rounds = int(os.getenv('MAX_QA', '10'))  # 默认保留10轮对话
-        # self.client = OpenAI(
-        #     api_key=self.openai_api_key,
-        #     base_url="https://ark.cn-beijing.volces.com/api/v3",
-        # )
-        # self.client= OpenAI(
-        #     api_key=self.openai_api_key,
-        #     base_url=self.openai_api_url,
-        #  )
+        self.google_api_url = os.getenv('GOOGLE_API_URL', 'https://generativelanguage.googleapis.com/v1beta')
+        self.GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+        self.GOOGLE_API_MODEL = os.getenv("GOOGLE_API_MODEL")
+        self.API_PROVIDER = os.getenv('API_PROVIDER', 'openai')
+
         # 对话历史存储 - 使用字典存储不同股票的对话历史
         self.conversation_history = {}
         
@@ -58,7 +55,7 @@ class StockQA:
             包含回答和元数据的字典
         """
         try:
-            if not self.openai_api_key:
+            if not self.openai_api_key or self.GOOGLE_API_KEY:
                 return {"error": "未配置API密钥，无法使用智能问答功能"}
 
             # 处理对话ID和历史
@@ -120,7 +117,28 @@ class StockQA:
 - 同时提供乐观和保守的观点，帮助用户全面权衡
 - 强调风险管理和长期投资价值
 - 避免传播市场谣言或未经证实的信息
-
+ ## 约束条件 
+ - 必须遵循用户的风险偏好和投资目标。 
+ - 不得提供违法违规的投资建议。 
+ ## 定义 
+ - 投资策略：指根据市场分析和用户需求制定的资产配置和投资决策。 
+ - 风险偏好：指用户对投资风险的承受能力和偏好程度。 
+ ## 目标 
+ 1. 为用户提供个性化的投资策略和建议。 
+ 2. 帮助用户实现资产的长期增值。 
+ 3. 教育用户关于投资的知识和技能。 
+ ## Skills 
+ 1. 市场分析能力。 
+ 2. 风险评估和管理能力。 
+ 3. 沟通和教育能力。 
+ ## 音调 
+ - 专业严谨 
+ - 客观分析 
+ - 富有同理心 
+ ## 价值观 
+ - 以用户利益为核心，提供负责任的投资建议。 
+ - 追求长期价值，避免短期投机。 
+ - 教育用户，提高其投资意识和能力。 
 请记住，你的价值在于提供深度思考框架和专业视角，帮助投资者做出明智决策，而非简单的投资指令。在需要时，使用search_stock_news工具获取最新市场信息。
 """
 
@@ -149,15 +167,33 @@ class StockQA:
             #     temperature=0.7,
             #     stream=True
             # )
-            first_response = self.analyzer.client.chat.completions.create(
-                model=self.openai_model,  # your model endpoint ID
-                messages=messages ,
-                tools=tools,
-                tool_choice="auto",
-                temperature=0.7,
-            )
-
+            first_response=None
+            if self.API_PROVIDER=='openai':
+                first_response = self.analyzer.client.chat.completions.create(
+                    model=self.openai_model,  # your model endpoint ID
+                    messages=messages ,
+                    tools=tools,
+                    tool_choice="auto",
+                    temperature=0.7,
+                )
+            elif self.API_PROVIDER=='google':
+                first_response = self.analyzer.client.chat.completions.create(
+                    model=self.GOOGLE_API_MODEL,  # your model endpoint ID
+                    messages=messages,
+                    tools=tools,
+                    tool_choice="auto",
+                    temperature=0.7,
+                )
             # 获取初始响应
+            if first_response is None:
+                self.logger.error(f"未获取初始AI结果")
+                return {
+                    "question": question,
+                    "answer": f"抱歉，回答问题时出错",
+                    "stock_code": stock_code,
+                    "error": ''
+                }
+
             assistant_message = first_response.choices[0].message
             response_content = assistant_message.content
             used_search_tool = False
@@ -182,7 +218,7 @@ class StockQA:
                             search_query, 
                             stock_context.get("stock_name", ""),
                             stock_code, 
-                            stock_context.get("industry", ""),
+                            stock_context.get("industry", "未知"),
                             market_type
                         )
                         
@@ -195,12 +231,28 @@ class StockQA:
                         })
                 
                 # 第二步：让模型根据工具调用结果生成最终响应
-                second_response = self.analyzer.client.chat.completions.create(
-                    model=self.openai_model,
-                    messages=tool_messages,
-                    temperature=0.7
-                )
-                
+                second_response=None
+                if self.API_PROVIDER=='openai':
+                    second_response = self.analyzer.client.chat.completions.create(
+                        model=self.openai_model,
+                        messages=tool_messages,
+                        temperature=0.7
+                    )
+                elif self.API_PROVIDER=='google':
+                    second_response = self.analyzer.client.chat.completions.create(
+                        model=self.GOOGLE_API_MODEL,
+                        messages=tool_messages,
+                        temperature=0.7
+                    )
+                if second_response is None:
+                    self.logger.error(f"未获到ai工具调用分析结果")
+                    return {
+                        "question": question,
+                        "answer": f"抱歉，回答问题时出错",
+                        "stock_code": stock_code,
+                        "error": ''
+                    }
+                    # 获取最终响应
                 response_content = second_response.choices[0].message.content
                 assistant_message = {"role": "assistant", "content": response_content}
             else:
