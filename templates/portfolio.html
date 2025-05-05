@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 
 {% block title %}投资组合 - 智能分析系统{% endblock %}
@@ -176,8 +177,12 @@
         const savedPortfolio = localStorage.getItem('portfolio');
         if (savedPortfolio) {
             portfolio = JSON.parse(savedPortfolio);
-            renderPortfolio();
-            analyzePortfolio();
+            renderPortfolio(); // 先用缓存数据渲染一次，避免白屏
+            
+            // 为每个股票获取最新数据
+            portfolio.forEach((stock, index) => {
+                fetchStockData(stock.stock_code);
+            });
         }
     }
 
@@ -263,19 +268,13 @@
             price_change: null,
             score: null,
             recommendation: null,
-            loading: true  // 添加加载状态标志
+            loading: true,
+            isNew: true  // 标记为新添加的股票
         });
 
-        // 保存到本地存储
         savePortfolio();
-
-        // 关闭模态框
         $('#addStockModal').modal('hide');
-
-        // 重置表单
         $('#add-stock-form')[0].reset();
-
-        // 获取股票数据
         fetchStockData(stockCode);
     }
 
@@ -316,27 +315,25 @@
                 market_type: 'A'
             }),
             success: function(response) {
-
                 if (response.results && response.results.length > 0) {
                     const result = response.results[0];
 
-
-                    // 确保使用null检查来处理缺失值
                     portfolio[index].stock_name = result.stock_name || '未知';
                     portfolio[index].industry = result.industry || '未知';
                     portfolio[index].price = result.price || 0;
                     portfolio[index].price_change = result.price_change || 0;
                     portfolio[index].score = result.score || 0;
                     portfolio[index].recommendation = result.recommendation || '-';
-                    portfolio[index].loading = false; // 清除加载状态
+                    portfolio[index].loading = false;
 
-                    // 保存更新后的投资组合
                     savePortfolio();
-
-                    // 分析投资组合
                     analyzePortfolio();
-
-                    showSuccess(`已添加 ${result.stock_name || stockCode} 到投资组合`);
+                    
+                    // 只在添加新股票时显示成功消息
+                    if (portfolio[index].isNew) {
+                        showSuccess(`已添加 ${result.stock_name || stockCode} 到投资组合`);
+                        portfolio[index].isNew = false;
+                    }
                 } else {
                     portfolio[index].stock_name = '数据获取失败';
                     portfolio[index].loading = false;
