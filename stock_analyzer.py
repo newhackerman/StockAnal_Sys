@@ -24,6 +24,11 @@ import threading
 from get_quote import *
 from get_codename import *
 from openai import OpenAI
+# pip3 install genai
+import mimetypes
+from google import genai
+from google.genai import types
+
 # 线程局部存储
 thread_local = threading.local()
 
@@ -46,12 +51,25 @@ class StockAnalyzer:
         self.openai_api_key = os.getenv('OPENAI_API_KEY', os.getenv('OPENAI_API_KEY'))
         self.openai_api_url = os.getenv('OPENAI_API_URL', 'https://api.openai.com/v1')
         self.openai_model = os.getenv('OPENAI_API_MODEL', 'gemini-2.0-pro-exp-02-05')
-        self.function_call_model = os.getenv('FUNCTION_CALL_MODEL','gpt-4o')
+        self.function_call_model = os.getenv('FUNCTION_CALL_MODEL', 'gpt-4o')
         self.news_model = os.getenv('NEWS_MODEL')
-        self.client = OpenAI(
-            api_key=self.openai_api_key,
-            base_url=self.openai_api_url ,
-        )
+        self.API_PROVIDER = os.getenv('API_PROVIDER', 'openai')
+        #gemini
+        self.google_api_url = os.getenv('GOOGLE_API_URL', 'https://generativelanguage.googleapis.com/v1beta')
+        self.GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+        self.GOOGLE_API_MODEL = os.getenv("GOOGLE_API_MODEL")
+
+        if self.API_PROVIDER== 'google':
+            self.client = OpenAI(
+                api_key=self.GOOGLE_API_KEY,
+                base_url=self.google_api_url,
+            )
+        else:
+            self.client = OpenAI(
+                api_key=self.openai_api_key,
+                base_url=self.openai_api_url,
+            )
+
         # 配置参数
         self.params = {
             'ma_periods': {'short': 5, 'medium': 20, 'long': 60},
@@ -61,19 +79,19 @@ class StockAnalyzer:
             'volume_ma_period': 20,
             'atr_period': 14
         }
-
         # 添加缓存初始化
         self.data_cache = {}
 
         # JSON匹配标志
         self.json_match_flag = True
+
     def get_stock_data(self, stock_code, market_type='A', start_date=None, end_date=None):
         """获取股票数据"""
         # import akshare as ak
         #去判断个股是否存在，不存在就返回
-        stock_code=get_codename(stock_code,'code')
+        stock_code = get_codename(stock_code, 'code')
 
-        if stock_code is None or stock_code=='':
+        if stock_code is None or stock_code == '':
             self.logger.error(f"股票 {stock_code} 不存在，请检查股票代码或是否是最近上市股票")
             return None
         self.logger.info(f"开始获取股票 {stock_code} 数据，市场类型: {market_type}")
@@ -96,24 +114,24 @@ class StockAnalyzer:
             start_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
         if end_date is None:
             end_date = datetime.now().strftime('%Y-%m-%d')
-        if len(start_date)<10:
-            start_date=str(start_date)[0:4]+'-'+str(start_date)[4:6]+'-'+str(start_date)[6:8]
+        if len(start_date) < 10:
+            start_date = str(start_date)[0:4] + '-' + str(start_date)[4:6] + '-' + str(start_date)[6:8]
 
-        if len(end_date)<10:
-            end_date=str(end_date)[0:4]+'-'+str(end_date)[4:6]+'-'+str(end_date)[6:8]
+        if len(end_date) < 10:
+            end_date = str(end_date)[0:4] + '-' + str(end_date)[4:6] + '-' + str(end_date)[6:8]
             # print(end_date)
         try:
             # 根据市场类型获取数据
             if market_type == 'A':
-                df = get_quote(stock_code, start_date, end_date,market='A')
+                df = get_quote(stock_code, start_date, end_date, market='A')
             elif market_type == 'HK':
-                df =get_quote(stock_code, start_date, end_date,market='hk')
+                df = get_quote(stock_code, start_date, end_date, market='hk')
 
             elif market_type == 'US':
-                end_date= (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+                end_date = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
                 # df = get_quote(stock_code, start_date, end_date,market='us')
-                print(stock_code,start_date,end_date,market_type)
-                df=get_quote(str(stock_code).upper(), start_date, end_date, market='us')
+                print(stock_code, start_date, end_date, market_type)
+                df = get_quote(str(stock_code).upper(), start_date, end_date, market='us')
                 # print(df)
             else:
                 raise ValueError(f"不支持的市场类型: {market_type}")
@@ -126,7 +144,7 @@ class StockAnalyzer:
                 "最高": "high",
                 "最低": "low",
                 "成交量": "vol",
-                '涨跌幅':'zdf'
+                '涨跌幅': 'zdf'
                 # "成交额": "amount"
             })
 
@@ -143,7 +161,7 @@ class StockAnalyzer:
             # 删除空值
             df = df.dropna()
 
-            result = df.sort_values('date',inplace=True)
+            result = df.sort_values('date', inplace=True)
 
             # 缓存原始数据（包含datetime类型）
             self.data_cache[cache_key] = df.copy()
@@ -626,13 +644,13 @@ class StockAnalyzer:
                 elif sentiment == 'bearish' and action in ['buy', 'cautious_buy']:
                     action = 'hold'
                     sentiment_adjustment = "（市场氛围悲观，建议等待更好买点）"
-            elif self.json_match_flag==False:
+            elif self.json_match_flag == False:
                 import re
 
                 # 如果JSON解析失败，尝试从原始内容中匹配市场情绪
                 sentiment_pattern = r'(bullish|neutral|bearish)'
                 sentiment_match = re.search(sentiment_pattern, news_data.get('original_content', ''))
-                
+
                 if sentiment_match:
                     sentiment_map = {
                         'bullish': 'bullish',
@@ -640,7 +658,7 @@ class StockAnalyzer:
                         'bearish': 'bearish'
                     }
                     sentiment = sentiment_map.get(sentiment_match.group(1), 'neutral')
-                    
+
                     if sentiment == 'bullish' and action in ['hold', 'cautious_hold']:
                         action = 'cautious_buy'
                         sentiment_adjustment = "（市场氛围积极，可适当提高仓位）"
@@ -648,7 +666,6 @@ class StockAnalyzer:
                         action = 'hold'
                         sentiment_adjustment = "（市场氛围悲观，建议等待更好买点）"
 
-                    
             # 4. Technical indicators adjustment (Dimension 2: "Peak Detection System")
             technical_adjustment = ""
             if technical_data:
@@ -987,10 +1004,11 @@ class StockAnalyzer:
                             tavily_summary = ""
                             if "results" in tavily_response:
                                 for i, item in enumerate(tavily_response["results"][:limit]):
-                                    tavily_summary += f"{i+1}、{item.get('title', '')}\n"
+                                    tavily_summary += f"{i + 1}、{item.get('title', '')}\n"
                                     tavily_summary += f"{item.get('content', '')}\n\n"
 
-                            self.logger.info(f"Tavily搜索成功，获取到 {len(tavily_response.get('results', []))} 条新闻结果")
+                            self.logger.info(
+                                f"Tavily搜索成功，获取到 {len(tavily_response.get('results', []))} 条新闻结果")
 
                         except ImportError:
                             self.logger.error("未安装Tavily客户端库，请使用pip install tavily-python安装")
@@ -1006,7 +1024,6 @@ class StockAnalyzer:
                         if title and title not in seen_titles:
                             seen_titles.add(title)
                             unique_news.append(item)
-
 
                     unique_industry_news = []
                     seen_industry_titles = set()
@@ -1043,7 +1060,8 @@ class StockAnalyzer:
                     else:
                         market_sentiment = max(sentiment_scores.items(), key=lambda x: x[1])[0]
 
-                    self.logger.info(f"搜索完成，共获取到 {len(unique_news)} 条新闻和 {len(unique_industry_news)} 条行业新闻")
+                    self.logger.info(
+                        f"搜索完成，共获取到 {len(unique_news)} 条新闻和 {len(unique_industry_news)} 条行业新闻")
 
                     return {
                         "news": unique_news,
@@ -1056,7 +1074,6 @@ class StockAnalyzer:
                     self.logger.error(f"搜索新闻时出错: {str(e)}")
                     self.logger.error(traceback.format_exc())
                     return {"error": str(e)}
-
 
             def call_api():
                 try:
@@ -1072,7 +1089,7 @@ class StockAnalyzer:
                         max_tokens=1000,
                         stream=False,
                         timeout=120
-                    )
+                        )
 
                     # 检查是否有工具调用
                     message = response.choices[0].message
@@ -1105,7 +1122,7 @@ class StockAnalyzer:
                                 })
 
                         # 第二步：让模型处理搜索结果并生成最终响应
-                        second_response =self.client.chat.completions.create(
+                        second_response = self.client.chat.completions.create(
                             model=self.news_model,
                             messages=messages,
                             temperature=0.7,
@@ -1164,7 +1181,7 @@ class StockAnalyzer:
                     # 确保数据结构完整
                     if not isinstance(news_data, dict):
                         news_data = {}
-                
+
                     for key in ['news', 'announcements', 'industry_news']:
                         if key not in news_data:
                             news_data[key] = []
@@ -1345,15 +1362,26 @@ class StockAnalyzer:
 
             def call_api():
                 try:
-                    response = self.client.chat.completions.create(
-                        model=self.openai_model,
-                        messages=messages,
-                        temperature=0.8,
-                        max_tokens=4000,
-                        stream=False,
-                        timeout=180
-                    )
-                    result_queue.put(response)
+                    if self.API_PROVIDER=='openai':
+                        response = self.client.chat.completions.create(
+                            model=self.openai_model,
+                            messages=messages,
+                            temperature=0.8,
+                            max_tokens=4000,
+                            stream=False,
+                            timeout=180
+                        )
+                        result_queue.put(response)
+                    elif self.API_PROVIDER=='google':
+                        response = self.client.chat.completions.create(
+                            model=self.GOOGLE_API_MODEL,
+                            messages=messages,
+                            temperature=0.8,
+                            max_tokens=4000,
+                            stream=False,
+                            timeout=180
+                        )
+                        result_queue.put(response)
                 except Exception as e:
                     result_queue.put(e)
 
@@ -1527,7 +1555,6 @@ class StockAnalyzer:
 
         return recommendations
 
-
     def quick_analyze_stock(self, stock_code, market_type='A'):
         """快速分析股票，用于市场扫描"""
         try:
@@ -1583,11 +1610,11 @@ class StockAnalyzer:
     def get_stock_info(self, stock_code):
         """获取股票基本信息"""
         import akshare as ak
-
-        cache_key = f"{stock_code}_info"
-        if cache_key in self.data_cache:
-            return self.data_cache[cache_key]
         try:
+            cache_key = f"{stock_code}_info"
+            if cache_key in self.data_cache:
+                return self.data_cache[cache_key]
+
             # 获取A股股票基本信息
             stock_info = allstockinfo
 
@@ -1597,13 +1624,18 @@ class StockAnalyzer:
                 # 使用iloc安全地获取数据
                 if len(row) >= 2:  # 确保有至少两列
                     info_dict[row.iloc[0]] = row.iloc[1]
-            for data  in stock_info.iterrows():
+            for data in stock_info.iterrows():
                 code = data[1]['code']
-                name=data[1]['name']
-                market=data[1]['market']
-                Industry=data[1]['Industry']
+                name = data[1]['name']
+                market = data[1]['market']
+                try:
+                    Industry = data[1]['Industry']
+                    if Industry is None:
+                        Industry = "未知"
+                except:
+                    Industry = "未知"
                 if code == stock_code or name == stock_code:
-                    info_dict= {
+                    info_dict = {
                         '股票代码': code,
                         '股票名称': name,
                         '行业': Industry,
@@ -1621,7 +1653,8 @@ class StockAnalyzer:
                 info_dict['地区'] = "未知"
 
             # 增加更多日志来调试问题
-            self.logger.info(f"获取到股票信息: 名称={info_dict.get('股票名称','未知')}, 行业={info_dict.get('行业', '未知')}")
+            self.logger.info(
+                f"获取到股票信息: 名称={info_dict.get('股票名称', '未知')}, 行业={info_dict.get('行业', '未知')}")
 
             self.data_cache[cache_key] = info_dict
             return info_dict
@@ -1979,8 +2012,64 @@ class StockAnalyzer:
                     tech['indicators'][key] = float(value)
                 except (TypeError, ValueError):
                     tech['indicators'][key] = 0.0
+
+    def save_binary_file(file_name, data):
+        f = open(file_name, "wb")
+        f.write(data)
+        f.close()
+        print(f"File saved to to: {file_name}")
+
+    #google gemini 调用
+    def gemini_api(self, prompt):
+        """调用Google Gemini API"""
+        try:
+            if self.API_PROVIDER == 'google':
+                self.client = genai.Client(
+                    api_key=self.GOOGLE_API_KEY,
+                )
+                model = self.GEMINI_API_MODEL
+                contents = [
+                    types.Content(
+                        role="user",
+                        parts=[
+                            types.Part.from_text(text=f"""{prompt}?"""),
+                        ],
+                    ),
+                ]
+                generate_content_config = types.GenerateContentConfig(
+                    response_modalities=[
+                        # "image",
+                        "text",
+                    ],
+                    response_mime_type="text/plain",
+                )
+            for chunk in self.client.models.generate_content_stream(
+                    model=model,
+                    contents=contents,
+                    config=generate_content_config,
+            ):
+                if (
+                        chunk.candidates is None
+                        or chunk.candidates[0].content is None
+                        or chunk.candidates[0].content.parts is None
+                ):
+                    continue
+                if chunk.candidates[0].content.parts[0].inline_data:
+                    # file_name = "ENTER_FILE_NAME"
+                    inline_data = chunk.candidates[0].content.parts[0].inline_data
+                    data_buffer = inline_data.data
+                    print(f"Received data: {data_buffer}")
+                    # file_extension = mimetypes.guess_extension(inline_data.mime_type)
+                    # self.save_binary_file(f"{file_name}{file_extension}", data_buffer)
+                else:
+                    print(chunk.text)
+        except Exception as e:
+            self.logger.error(f"调用Google Gemini API失败: {str(e)}")
+            return None
+
+
 if __name__ == '__main__':
-    stockquote=StockAnalyzer()
-    stock_code='000498'
+    stockquote = StockAnalyzer()
+    stock_code = '000498'
     stockquote.get_stock_data(stock_code)
     stockquote.get_stock_news(stock_code, 'A')
