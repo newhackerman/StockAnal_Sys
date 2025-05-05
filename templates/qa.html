@@ -189,7 +189,7 @@
     let selectedStock = {
         code: '',
         name: '',
-        market_type: 'A'
+        market_type: ''
     };
 
     $(document).ready(function() {
@@ -278,11 +278,10 @@
                         price_change: stockInfo.price_change || 0
                     };
 
-                    // 更新股票信息区域
-                    updateStockInfo();
-
                     // 显示聊天界面
                     $('#chat-container').show();
+                     // 更新股票信息区域
+                    updateStockInfo();
 
                     // 欢迎消息
                     addSystemMessage(`我已加载 ${selectedStock.name}(${selectedStock.code}) 的数据，您可以问我关于这只股票的问题。`);
