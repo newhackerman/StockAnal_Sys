@@ -1,0 +1,113 @@
+/* 标题行样式优化 */
+.news-header, .hotspot-header {
+    background: linear-gradient(to right, rgba(10, 14, 39, 0.98), rgba(26, 31, 58, 0.95));
+    color: #ffffff;
+    padding: 16px 20px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    height: 60px; /* 固定高度，防止换行导致高度变化 */
+    overflow: hidden; /* 确保内容不会溢出 */
+}
+
+.news-header h5, .hotspot-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* 防止标题换行 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* 增强文字阴影，提高可读性 */
+    color: #ffffff; /* 确保文字颜色为白色 */
+    max-width: 70%; /* 限制最大宽度，防止挤压右侧工具栏 */
+}
+
+.news-header i, .hotspot-header i {
+    color: #00d4aa; /* 亮色图标 */
+    margin-right: 12px;
+    font-size: 1.2em;
+    filter: drop-shadow(0 0 5px rgba(0, 212, 170, 0.7)); /* 增强图标发光效果 */
+}
+
+.news-tools {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 工具之间的间距 */
+}
+
+.news-tools .btn {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15); /* 稍微增加按钮背景透明度 */
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.news-tools .btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.news-tools .form-check-input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.news-tools .form-check-input:checked {
+    background-color: #00d4aa;
+    border-color: #00d4aa;
+    box-shadow: 0 0 5px rgba(0, 212, 170, 0.5);
+}
+
+.news-tools .form-check-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* 增强文字阴影 */
+}
+
+/* 覆盖默认样式，确保标题行不受其他样式影响 */
+.portal-news .news-header,
+.portal-hotspot .hotspot-header {
+    background: linear-gradient(to right, rgba(10, 14, 39, 0.98), rgba(26, 31, 58, 0.95)) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 16px 20px !important;
+}
+
+.portal-news .news-header h5,
+.portal-hotspot .hotspot-header h5 {
+    color: #ffffff !important;
+    margin: 0 !important;
+}
+
+/* 响应式调整 */
+@media (max-width: 576px) {
+    .news-header, .hotspot-header {
+        padding: 12px 15px;
+        height: auto; /* 在小屏幕上允许自适应高度 */
+        min-height: 50px;
+    }
+    
+    .news-header h5, .hotspot-header h5 {
+        font-size: 1rem;
+        max-width: 60%;
+    }
+    
+    .news-tools .btn {
+        padding: 4px 8px;
+    }
+    
+    .news-tools .form-check-label {
+        font-size: 0.8rem;
+    }
+}

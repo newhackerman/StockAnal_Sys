@@ -1,0 +1,34 @@
+numpy>=1.24.0
+pandas==2.2.2
+scipy>=1.13.0,<1.14.0
+akshare>=1.16.56
+tqdm==4.67.1
+openai>=1.0.0
+requests==2.32.3
+python-dotenv==1.0.1
+flask==3.1.0
+loguru==0.7.2
+matplotlib==3.9.2
+seaborn==0.13.2
+ipython>=7.34.0
+beautifulsoup4==4.12.3
+html5lib==1.1
+lxml==4.9.4
+jsonpath==0.82.2
+openpyxl==3.1.5
+flask_swagger_ui
+sqlalchemy
+flask-cors
+flask-caching
+# 新增依赖
+gunicorn==20.1.0  # 生产环境WSGI服务器
+PyYAML==6.0  # YAML支持
+scikit-learn==1.2.2  # 机器学习库(用于预测模型)
+statsmodels==0.13.5  # 统计模型(用于时间序列分析)
+pytest==7.3.1  # 测试框架
+tavily-python # Tavily客户端库
+google-genai # Google Gemini AI客户端库
+
+# 部署工具
+supervisor==4.2.5  # 进程管理
+redis==4.5.4  # 可选的缓存后端
