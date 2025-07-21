@@ -1,5 +1,5 @@
 # 智能分析系统
-
+- 此功能架构来源于LargeCupPanda，本项目替换了akshare【很大程序上解决了数据不准确的问题】 ，在原有基础上支持了gemini,优化了原来调用openai的接口
 ![版本](https://img.shields.io/badge/版本-2.1.0-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.7+-green.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.0+-red.svg)
