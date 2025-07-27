@@ -1,0 +1,315 @@
+{% extends "layout.html" %}
+
+{% block title %}分析记录详情 - {{ record.stock_code }} - 智能分析系统{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-3">
+    <div id="alerts-container"></div>
+    
+    <!-- 返回按钮 -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <button class="btn btn-secondary" onclick="window.close()">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+        </div>
+    </div>
+
+    <!-- 基本信息 -->
+    <div class="row g-3 mb-3">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle"></i> 分析记录详情
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="mb-2">
+                                {{ analysis_data.basic_info.stock_name or record.stock_code }} 
+                                <small class="text-muted">({{ record.stock_code }})</small>
+                            </h3>
+                            <p class="text-muted mb-3">
+                                {{ analysis_data.basic_info.industry or '-' }} | 
+                                <span class="badge bg-secondary">{{ record.market_type }}</span>
+                            </p>
+                            
+                            <div class="mb-3">
+                                <strong>分析时间：</strong>
+                                <span class="text-primary">{{ record.analysis_date.strftime('%Y-%m-%d %H:%M:%S') if record.analysis_date else '-' }}</span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <strong>综合评分：</strong>
+                                <span class="badge bg-primary fs-6">{{ record.total_score or 0 }}</span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <strong>投资建议：</strong>
+                                <span class="badge bg-success">{{ analysis_data.recommendation.action or '-' }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            {% if analysis_data.price_data %}
+                            <div class="mb-3">
+                                <strong>当时价格：</strong>
+                                <span class="fs-4 text-primary">¥{{ "%.2f"|format(analysis_data.price_data.current_price) if analysis_data.price_data.current_price else '-' }}</span>
+                            </div>
+                            
+                            {% if analysis_data.price_data.price_change is defined %}
+                            <div class="mb-3">
+                                <strong>价格变动：</strong>
+                                <span class="{{ 'text-success' if analysis_data.price_data.price_change >= 0 else 'text-danger' }}">
+                                    {{ '+' if analysis_data.price_data.price_change >= 0 else '' }}{{ "%.2f"|format(analysis_data.price_data.price_change_value) if analysis_data.price_data.price_change_value else '0.00' }}
+                                    ({{ '+' if analysis_data.price_data.price_change >= 0 else '' }}{{ "%.2f"|format(analysis_data.price_data.price_change) if analysis_data.price_data.price_change else '0.00' }}%)
+                                </span>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            
+                            <div class="mb-3">
+                                <strong>记录创建：</strong>
+                                <span class="text-muted">{{ record.created_at.strftime('%Y-%m-%d %H:%M:%S') if record.created_at else '-' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-radar"></i> 评分详情
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis_data.scores %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>趋势分析：</span>
+                            <span class="badge bg-info">{{ analysis_data.scores.trend_score or 0 }}</span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>技术指标：</span>
+                            <span class="badge bg-info">{{ analysis_data.scores.indicators_score or 0 }}</span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>支撑压力：</span>
+                            <span class="badge bg-info">{{ analysis_data.scores.support_resistance_score or 0 }}</span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>波动成交：</span>
+                            <span class="badge bg-info">{{ analysis_data.scores.volatility_volume_score or 0 }}</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">暂无详细评分数据</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 技术分析详情 -->
+    {% if analysis_data.technical_analysis %}
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line"></i> 技术指标
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis_data.technical_analysis.indicators %}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <strong>RSI：</strong>
+                                <span>{{ "%.2f"|format(analysis_data.technical_analysis.indicators.rsi) if analysis_data.technical_analysis.indicators.rsi else '-' }}</span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>MACD：</strong>
+                                <span>{{ "%.3f"|format(analysis_data.technical_analysis.indicators.macd) if analysis_data.technical_analysis.indicators.macd else '-' }}</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <strong>波动率：</strong>
+                                <span>{{ "%.2f"|format(analysis_data.technical_analysis.indicators.volatility * 100) if analysis_data.technical_analysis.indicators.volatility else '-' }}%</span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>成交量：</strong>
+                                <span>{{ analysis_data.technical_analysis.indicators.volume or '-' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">暂无技术指标数据</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-arrows-alt-v"></i> 支撑压力位
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis_data.technical_analysis.support_resistance %}
+                    <div class="mb-3">
+                        <strong>压力位：</strong>
+                        {% if analysis_data.technical_analysis.support_resistance.resistance %}
+                            {% for level in analysis_data.technical_analysis.support_resistance.resistance.short_term[:2] %}
+                                <span class="badge bg-danger me-1">{{ "%.2f"|format(level) }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <strong>支撑位：</strong>
+                        {% if analysis_data.technical_analysis.support_resistance.support %}
+                            {% for level in analysis_data.technical_analysis.support_resistance.support.short_term[:2] %}
+                                <span class="badge bg-success me-1">{{ "%.2f"|format(level) }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">暂无支撑压力位数据</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- AI分析建议 -->
+    {% if analysis_data.ai_analysis %}
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-robot"></i> AI分析建议
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="analysis-content">
+                        {{ analysis_data.ai_analysis|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 投资建议详情 -->
+    {% if analysis_data.recommendation %}
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-lightbulb"></i> 投资建议详情
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <strong>建议操作：</strong>
+                                <span class="badge bg-primary fs-6">{{ analysis_data.recommendation.action or '-' }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <strong>风险等级：</strong>
+                                <span class="badge bg-warning text-dark">{{ analysis_data.recommendation.risk_level or '-' }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <strong>持有期限：</strong>
+                                <span class="text-info">{{ analysis_data.recommendation.time_horizon or '-' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if analysis_data.recommendation.reasons %}
+                    <div class="mt-3">
+                        <strong>建议理由：</strong>
+                        <ul class="mt-2">
+                            {% for reason in analysis_data.recommendation.reasons %}
+                            <li>{{ reason }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 操作按钮 -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <button class="btn btn-success me-2" onclick="reAnalyze()">
+                <i class="fas fa-redo"></i> 重新分析
+            </button>
+            <button class="btn btn-secondary" onclick="window.close()">
+                <i class="fas fa-times"></i> 关闭
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function reAnalyze() {
+        // 在父窗口中重新分析
+        if (window.opener) {
+            window.opener.reAnalyze('{{ record.stock_code }}', '{{ record.market_type }}');
+            window.close();
+        } else {
+            // 如果没有父窗口，直接跳转到仪表盘
+            window.location.href = `/dashboard?stock_code={{ record.stock_code }}&market_type={{ record.market_type }}`;
+        }
+    }
+
+    // 格式化AI分析文本
+    $(document).ready(function() {
+        const analysisContent = $('.analysis-content');
+        if (analysisContent.length > 0) {
+            let content = analysisContent.html();
+            
+            // 简单的文本格式化
+            content = content
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            analysisContent.html('<p>' + content + '</p>');
+        }
+    });
+</script>
+{% endblock %}

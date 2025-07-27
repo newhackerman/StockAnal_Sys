@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # 开发环境基本面分析系统
+  fundamental-analyzer-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: fundamental-analyzer-dev
+    ports:
+      - "5000:5000"
+      - "5678:5678"  # 调试端口
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - PYTHONPATH=/app
+      - TZ=Asia/Shanghai
+      # AI服务配置
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_API_URL=${OPENAI_API_URL:-https://api.openai.com/v1}
+      - OPENAI_API_MODEL=${OPENAI_API_MODEL:-gpt-4o}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - API_PROVIDER=${API_PROVIDER:-openai}
+      # 数据库配置
+      - USE_DATABASE=${USE_DATABASE:-true}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///./data/stock_analysis.db}
+      # Redis配置
+      - REDIS_URL=redis://redis-dev:6379/0
+      # 应用配置
+      - PORT=5000
+      - DEBUG=true
+    volumes:
+      - .:/app
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./cache:/app/cache
+    restart: unless-stopped
+    networks:
+      - analyzer-dev-network
+    depends_on:
+      - redis-dev
+    command: python web_server.py --debug
+
+  # 开发环境Redis
+  redis-dev:
+    image: redis:7-alpine
+    container_name: fundamental-redis-dev
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_dev_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - analyzer-dev-network
+
+volumes:
+  redis_dev_data:
+
+networks:
+  analyzer-dev-network:
+    driver: bridge

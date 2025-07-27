@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>调试K线图Tooltip</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+</head>
+<body>
+    <div style="padding: 20px;">
+        <h2>调试K线图Tooltip</h2>
+        <div id="chart1" style="height: 300px; margin-bottom: 20px;"></div>
+        <h3>测试1: 纯K线图</h3>
+        
+        <div id="chart2" style="height: 300px; margin-bottom: 20px;"></div>
+        <h3>测试2: K线图 + 均线</h3>
+        
+        <div id="chart3" style="height: 300px;"></div>
+        <h3>测试3: 使用category类型</h3>
+    </div>
+    
+    <script>
+        // 测试数据
+        const testData = [
+            { date: '2024-01-01', open: 10.0, high: 10.5, low: 9.8, close: 10.2 },
+            { date: '2024-01-02', open: 10.2, high: 10.8, low: 10.0, close: 10.6 },
+            { date: '2024-01-03', open: 10.6, high: 10.9, low: 10.3, close: 10.4 },
+            { date: '2024-01-04', open: 10.4, high: 10.7, low: 9.9, close: 10.1 },
+            { date: '2024-01-05', open: 10.1, high: 10.4, low: 9.7, close: 9.8 }
+        ];
+        
+        // 测试1: 纯K线图，使用datetime
+        const chart1Options = {
+            series: [{
+                name: 'K线',
+                type: 'candlestick',
+                data: testData.map(item => ({
+                    x: new Date(item.date).getTime(),
+                    y: [item.open, item.high, item.low, item.close]
+                }))
+            }],
+            chart: {
+                height: 300,
+                type: 'candlestick'
+            },
+            xaxis: {
+                type: 'datetime'
+            },
+            tooltip: {
+                enabled: true
+            }
+        };
+        
+        // 测试2: K线图 + 均线，使用datetime
+        const chart2Options = {
+            series: [
+                {
+                    name: 'K线',
+                    type: 'candlestick',
+                    data: testData.map(item => ({
+                        x: new Date(item.date).getTime(),
+                        y: [item.open, item.high, item.low, item.close]
+                    }))
+                },
+                {
+                    name: 'MA',
+                    type: 'line',
+                    data: testData.map(item => ({
+                        x: new Date(item.date).getTime(),
+                        y: item.close
+                    }))
+                }
+            ],
+            chart: {
+                height: 300,
+                type: 'line'
+            },
+            xaxis: {
+                type: 'datetime'
+            },
+            tooltip: {
+                enabled: true
+            }
+        };
+        
+        // 测试3: 使用category类型（模拟当前实现）
+        const chart3Options = {
+            series: [
+                {
+                    name: 'K线',
+                    type: 'candlestick',
+                    data: testData.map(item => ({
+                        x: new Date(item.date).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }),
+                        y: [item.open, item.high, item.low, item.close]
+                    }))
+                },
+                {
+                    name: 'MA',
+                    type: 'line',
+                    data: testData.map(item => ({
+                        x: new Date(item.date).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }),
+                        y: item.close
+                    }))
+                }
+            ],
+            chart: {
+                height: 300,
+                type: 'line'
+            },
+            xaxis: {
+                type: 'category'
+            },
+            tooltip: {
+                enabled: true
+            }
+        };
+        
+        // 渲染图表
+        const chart1 = new ApexCharts(document.querySelector("#chart1"), chart1Options);
+        chart1.render();
+        
+        const chart2 = new ApexCharts(document.querySelector("#chart2"), chart2Options);
+        chart2.render();
+        
+        const chart3 = new ApexCharts(document.querySelector("#chart3"), chart3Options);
+        chart3.render();
+    </script>
+</body>
+</html>

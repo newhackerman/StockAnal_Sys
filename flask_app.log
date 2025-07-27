@@ -1,0 +1,2127 @@
+[2025-03-22 09:29:24,833] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 09:29:25,525] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: '600159'
+[2025-03-22 09:29:25,576] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 91, in get_stock_data
+    df = ak.stock_zh_a_hist(
+        symbol=stock_code,
+    ...<2 lines>...
+        adjust="qfq"
+    )
+  File "D:\Programs\Python\Python313\Lib\site-packages\akshare\stock_feature\stock_hist_em.py", line 1051, in stock_zh_a_hist
+    "secid": f"{code_id_dict[symbol]}.{symbol}",
+                ~~~~~~~~~~~~^^^^^^^^
+KeyError: '600159'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 819, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 144, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: '600159'
+
+[2025-03-22 10:55:04,068] INFO in web_server: 获取股票 600159 的历史数据，市场: HK, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 10:55:04,626] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-03-22 10:55:04,824] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 98, in get_stock_data
+    df = ak.stock_hk_daily(
+        symbol=stock_code,
+        adjust="qfq"
+    )
+  File "D:\Programs\Python\Python313\Lib\site-packages\akshare\stock\stock_hk_sina.py", line 80, in stock_hk_daily
+    data_df.index = pd.to_datetime(data_df["date"]).dt.date
+                                   ~~~~~~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\range.py", line 417, in get_loc
+    raise KeyError(key)
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 819, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 144, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-03-22 10:55:53,782] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 10:55:53,783] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: '300159'
+[2025-03-22 10:55:53,785] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 91, in get_stock_data
+    df = ak.stock_zh_a_hist(
+        symbol=stock_code,
+    ...<2 lines>...
+        adjust="qfq"
+    )
+  File "D:\Programs\Python\Python313\Lib\site-packages\akshare\stock_feature\stock_hist_em.py", line 1051, in stock_zh_a_hist
+    "secid": f"{code_id_dict[symbol]}.{symbol}",
+                ~~~~~~~~~~~~^^^^^^^^
+KeyError: '300159'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 819, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 144, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: '300159'
+
+[2025-03-22 11:06:45,426] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 11:06:56,905] INFO in web_server: 计算股票 300159 的技术指标
+[2025-03-22 11:06:56,937] INFO in web_server: 将数据转换为JSON格式，行数: 240
+[2025-03-22 11:06:56,962] INFO in web_server: 数据处理完成，返回 240 条记录
+[2025-03-22 11:06:57,046] INFO in web_server: 准备分析股票: 300159
+[2025-03-22 11:06:57,047] INFO in web_server: 创建新的分析任务: d64066ec-deec-4756-af39-4176f72632d2
+[2025-03-22 11:07:11,177] INFO in web_server: 分析任务 d64066ec-deec-4756-af39-4176f72632d2 完成
+[2025-03-22 11:16:08,551] INFO in web_server: 获取指数 000001 成分股
+[2025-03-22 11:16:10,017] INFO in web_server: 找到 2249 只成分股
+[2025-03-22 11:16:10,025] WARNING in web_server: 股票列表过长 (2249只)，截取前100只
+[2025-03-22 11:16:41,670] INFO in web_server: 扫描任务 5b414578-c0d7-4e68-8102-41e6f9b8eb2f 完成，找到 49 只符合条件的股票
+[2025-03-22 11:17:28,089] INFO in web_server: 分析股票请求: ['600159'], 市场类型: A
+[2025-03-22 11:17:28,661] INFO in web_server: 分析结果: 股票=600159, 名称=大龙地产, 行业=房地产开发
+[2025-03-22 11:28:24,154] INFO in web_server: 分析股票请求: ['600159'], 市场类型: A
+[2025-03-22 11:28:34,831] INFO in web_server: 分析结果: 股票=600159, 名称=大龙地产, 行业=房地产开发
+[2025-03-22 11:36:21,093] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 11:36:22,227] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 11:58:36,673] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 11:58:37,934] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 12:04:23,632] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 12:04:25,953] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 12:10:14,413] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 12:10:15,916] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 12:11:21,850] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 12:11:22,790] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 12:17:28,552] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 12:17:29,776] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 12:20:16,421] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 12:20:17,616] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 12:44:54,758] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-22 12:44:56,200] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-22 13:03:00,751] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 13:03:01,138] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 13:03:01,164] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 13:03:01,188] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 13:03:01,284] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:03:01,284] INFO in web_server: 创建新的分析任务: f2a749db-1762-4249-90f3-d27ed95431ae
+[2025-03-22 13:03:13,183] INFO in web_server: 分析任务 f2a749db-1762-4249-90f3-d27ed95431ae 完成
+[2025-03-22 13:08:45,287] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 13:08:45,744] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 13:08:45,771] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 13:08:45,798] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 13:08:45,872] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:08:45,873] INFO in web_server: 创建新的分析任务: 24d1ce2c-5b7d-4791-8193-ffd83c959c09
+[2025-03-22 13:09:00,703] INFO in web_server: 分析任务 24d1ce2c-5b7d-4791-8193-ffd83c959c09 完成
+[2025-03-22 13:13:39,877] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 13:13:40,181] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 13:13:40,191] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 13:13:40,197] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 13:13:40,275] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:13:40,275] INFO in web_server: 创建新的分析任务: 95ff4320-1db8-458e-8bc0-f5ea7d2067d5
+[2025-03-22 13:14:59,110] INFO in web_server: 分析任务 95ff4320-1db8-458e-8bc0-f5ea7d2067d5 完成
+[2025-03-22 13:15:52,119] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 13:15:52,566] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 13:15:52,583] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 13:15:52,599] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 13:15:52,697] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:15:52,697] INFO in web_server: 创建新的分析任务: feed281a-ab35-43e9-8c20-20d302d2fab3
+[2025-03-22 13:17:21,861] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 13:17:22,240] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 13:17:22,246] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 13:17:22,253] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 13:17:22,302] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:17:22,302] INFO in web_server: 创建新的分析任务: 563bc8f0-08ae-4c67-b9fd-caab1ff6a607
+[2025-03-22 13:18:44,441] INFO in web_server: 分析任务 563bc8f0-08ae-4c67-b9fd-caab1ff6a607 完成
+[2025-03-22 13:39:14,779] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 13:39:14,780] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 13:39:14,797] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 13:39:14,810] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 13:39:14,896] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:39:14,897] INFO in web_server: 使用缓存的分析结果: 000151
+[2025-03-22 13:39:38,019] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:39:38,020] INFO in web_server: 使用缓存的分析结果: 000151
+[2025-03-22 13:40:04,817] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 13:40:04,818] INFO in web_server: 使用缓存的分析结果: 000151
+[2025-03-22 20:43:55,640] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 20:43:56,227] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 20:43:56,239] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 20:43:56,255] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 20:43:56,337] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 20:43:56,338] INFO in web_server: 创建新的分析任务: 43f33956-11ce-4e20-83bb-c2577489b49c
+[2025-03-22 20:45:24,977] INFO in web_server: 分析任务 43f33956-11ce-4e20-83bb-c2577489b49c 完成
+[2025-03-22 20:57:59,122] INFO in web_server: 获取股票 000151 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 20:57:59,125] INFO in web_server: 计算股票 000151 的技术指标
+[2025-03-22 20:57:59,142] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 20:57:59,152] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 20:57:59,315] INFO in web_server: 准备分析股票: 000151
+[2025-03-22 20:57:59,316] INFO in web_server: 使用缓存的分析结果: 000151
+[2025-03-22 20:58:19,585] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 20:58:19,990] INFO in web_server: 计算股票 600159 的技术指标
+[2025-03-22 20:58:19,997] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 20:58:20,007] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 20:58:20,075] INFO in web_server: 准备分析股票: 600159
+[2025-03-22 20:58:20,076] INFO in web_server: 创建新的分析任务: 49467a83-8104-4d77-ab0a-582a6332c2d8
+[2025-03-22 20:59:27,958] INFO in web_server: 分析任务 49467a83-8104-4d77-ab0a-582a6332c2d8 完成
+[2025-03-22 21:04:10,095] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 21:04:10,097] INFO in web_server: 计算股票 600159 的技术指标
+[2025-03-22 21:04:10,112] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 21:04:10,119] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 21:04:10,273] INFO in web_server: 准备分析股票: 600159
+[2025-03-22 21:04:10,273] INFO in web_server: 使用缓存的分析结果: 600159
+[2025-03-22 21:05:05,043] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240322, 结束日期: 20250322
+[2025-03-22 21:05:05,439] INFO in web_server: 计算股票 600159 的技术指标
+[2025-03-22 21:05:05,454] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-22 21:05:05,461] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-22 21:05:05,539] INFO in web_server: 准备分析股票: 600159
+[2025-03-22 21:05:05,539] INFO in web_server: 创建新的分析任务: ae46c70b-2a02-4924-94f5-59d226607b94
+[2025-03-22 21:07:02,324] INFO in web_server: 分析任务 ae46c70b-2a02-4924-94f5-59d226607b94 完成
+[2025-03-23 10:27:36,754] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240323, 结束日期: 20250323
+[2025-03-23 10:27:37,138] INFO in web_server: 计算股票 300059 的技术指标
+[2025-03-23 10:27:37,181] INFO in web_server: 将数据转换为JSON格式，行数: 240
+[2025-03-23 10:27:37,203] INFO in web_server: 数据处理完成，返回 240 条记录
+[2025-03-23 10:27:37,303] INFO in web_server: 准备分析股票: 300059
+[2025-03-23 10:27:37,304] INFO in web_server: 创建新的分析任务: ee94df2e-e283-4ecb-9c3d-996473224faa
+[2025-03-23 10:29:32,746] INFO in web_server: 分析任务 ee94df2e-e283-4ecb-9c3d-996473224faa 完成
+[2025-03-23 10:42:41,094] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240323, 结束日期: 20250323
+[2025-03-23 10:42:41,399] INFO in web_server: 计算股票 300059 的技术指标
+[2025-03-23 10:42:41,423] INFO in web_server: 将数据转换为JSON格式，行数: 240
+[2025-03-23 10:42:41,443] INFO in web_server: 数据处理完成，返回 240 条记录
+[2025-03-23 10:42:41,526] INFO in web_server: 准备分析股票: 300059
+[2025-03-23 10:42:41,526] INFO in web_server: 创建新的分析任务: 92c13ef6-ceb4-440a-a0b1-63cc1ccf6810
+[2025-03-23 10:44:29,934] INFO in web_server: 分析任务 92c13ef6-ceb4-440a-a0b1-63cc1ccf6810 完成
+[2025-03-25 21:53:38,437] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-03-25 21:53:40,809] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-03-25 21:55:30,453] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240325, 结束日期: 20250325
+[2025-03-25 21:55:30,999] INFO in web_server: 计算股票 300059 的技术指标
+[2025-03-25 21:55:31,024] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-03-25 21:55:31,039] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-03-25 21:55:31,136] INFO in web_server: 准备分析股票: 300059
+[2025-03-25 21:55:31,137] INFO in web_server: 创建新的分析任务: e681489b-17bd-4530-9edf-41ac8295e3a5
+[2025-03-25 21:57:24,629] INFO in web_server: 分析任务 e681489b-17bd-4530-9edf-41ac8295e3a5 完成
+[2025-03-29 11:45:43,223] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 11:45:43,540] INFO in web_server: 计算股票 300059 的技术指标
+[2025-03-29 11:45:43,567] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 11:45:43,583] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 11:45:43,676] INFO in web_server: 准备分析股票: 300059
+[2025-03-29 11:45:43,676] INFO in web_server: 创建新的分析任务: a1c76ff3-c537-4f6d-9970-099a9f57b8e9
+[2025-03-29 11:47:37,797] INFO in web_server: 分析任务 a1c76ff3-c537-4f6d-9970-099a9f57b8e9 完成
+[2025-03-29 11:48:56,266] INFO in web_server: 准备分析股票: 300059
+[2025-03-29 11:48:56,266] INFO in web_server: 使用缓存的分析结果: 300059
+[2025-03-29 11:49:01,106] INFO in web_server: 准备分析股票: 300059
+[2025-03-29 11:49:01,106] INFO in web_server: 使用缓存的分析结果: 300059
+[2025-03-29 12:13:04,156] INFO in web_server: 获取股票 300181 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 12:13:04,420] INFO in web_server: 计算股票 300181 的技术指标
+[2025-03-29 12:13:04,442] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 12:13:04,463] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 12:13:04,551] INFO in web_server: 准备分析股票: 300181
+[2025-03-29 12:13:04,551] INFO in web_server: 创建新的分析任务: 8b274add-4696-4451-ad18-ae5fe862b8a5
+[2025-03-29 12:15:50,434] INFO in web_server: 分析任务 8b274add-4696-4451-ad18-ae5fe862b8a5 完成
+[2025-03-29 12:22:05,229] INFO in web_server: 获取股票 000691 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 12:22:05,787] INFO in web_server: 计算股票 000691 的技术指标
+[2025-03-29 12:22:05,855] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 12:22:05,888] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 12:22:06,097] INFO in web_server: 准备分析股票: 000691
+[2025-03-29 12:22:06,097] INFO in web_server: 创建新的分析任务: 119bf3b0-964d-4539-8c26-71902900683f
+[2025-03-29 12:23:56,326] INFO in web_server: 分析任务 119bf3b0-964d-4539-8c26-71902900683f 完成
+[2025-03-29 12:45:14,590] INFO in web_server: 获取股票 000221 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 12:45:14,774] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-03-29 12:45:14,977] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 820, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-03-29 12:45:58,941] INFO in web_server: 获取股票 000653 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 12:45:59,263] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-03-29 12:45:59,272] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 820, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-03-29 12:47:55,840] INFO in web_server: 获取股票 000592 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 12:47:56,040] INFO in web_server: 计算股票 000592 的技术指标
+[2025-03-29 12:47:56,060] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 12:47:56,077] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 12:47:56,164] INFO in web_server: 准备分析股票: 000592
+[2025-03-29 12:47:56,164] INFO in web_server: 创建新的分析任务: 475c0196-a38c-4bdb-80a7-d98f6aed2a12
+[2025-03-29 12:50:38,895] INFO in web_server: 分析任务 475c0196-a38c-4bdb-80a7-d98f6aed2a12 完成
+[2025-03-29 13:09:56,077] INFO in web_server: 获取股票 000381 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:09:56,253] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-03-29 13:09:56,270] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 820, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-03-29 13:10:10,558] INFO in web_server: 获取股票 000350 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:10:10,722] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-03-29 13:10:10,727] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 820, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-03-29 13:10:30,185] INFO in web_server: 获取股票 300160 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:10:30,407] INFO in web_server: 计算股票 300160 的技术指标
+[2025-03-29 13:10:30,429] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 13:10:30,443] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 13:10:30,523] INFO in web_server: 准备分析股票: 300160
+[2025-03-29 13:10:30,523] INFO in web_server: 创建新的分析任务: 95277eff-56cf-472e-a1b3-013b514bb2d3
+[2025-03-29 13:12:23,985] INFO in web_server: 分析任务 95277eff-56cf-472e-a1b3-013b514bb2d3 完成
+[2025-03-29 13:14:08,747] INFO in web_server: 获取股票 300160 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:14:09,087] INFO in web_server: 计算股票 300160 的技术指标
+[2025-03-29 13:14:09,115] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 13:14:09,129] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 13:14:09,213] INFO in web_server: 准备分析股票: 300160
+[2025-03-29 13:14:09,213] INFO in web_server: 创建新的分析任务: 06b7cfaf-dbd8-47b9-a9c6-a0027592a649
+[2025-03-29 13:16:03,826] INFO in web_server: 分析任务 06b7cfaf-dbd8-47b9-a9c6-a0027592a649 完成
+[2025-03-29 13:31:57,988] INFO in web_server: 获取股票 3600161 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:31:58,190] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-03-29 13:31:58,210] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 820, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-03-29 13:32:07,064] INFO in web_server: 获取股票 300165 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:32:07,321] INFO in web_server: 计算股票 300165 的技术指标
+[2025-03-29 13:32:07,342] INFO in web_server: 将数据转换为JSON格式，行数: 240
+[2025-03-29 13:32:07,361] INFO in web_server: 数据处理完成，返回 240 条记录
+[2025-03-29 13:32:07,453] INFO in web_server: 准备分析股票: 300165
+[2025-03-29 13:32:07,453] INFO in web_server: 创建新的分析任务: 77a6ec66-e0cd-4c3f-9780-2ce8865304b5
+[2025-03-29 13:33:42,091] INFO in web_server: 分析任务 77a6ec66-e0cd-4c3f-9780-2ce8865304b5 完成
+[2025-03-29 13:35:14,434] INFO in web_server: 获取股票 300168 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:35:14,664] INFO in web_server: 计算股票 300168 的技术指标
+[2025-03-29 13:35:14,690] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 13:35:14,711] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 13:35:14,813] INFO in web_server: 准备分析股票: 300168
+[2025-03-29 13:35:14,813] INFO in web_server: 创建新的分析任务: 3af221ed-c273-4a16-bdfd-7585bff76103
+[2025-03-29 13:37:02,532] INFO in web_server: 分析任务 3af221ed-c273-4a16-bdfd-7585bff76103 完成
+[2025-03-29 13:38:18,117] INFO in web_server: 获取股票 300169 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:38:18,338] INFO in web_server: 计算股票 300169 的技术指标
+[2025-03-29 13:38:18,367] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 13:38:18,385] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 13:38:18,466] INFO in web_server: 准备分析股票: 300169
+[2025-03-29 13:38:18,466] INFO in web_server: 创建新的分析任务: b401efcc-a219-4b6c-968e-ad58fa01177a
+[2025-03-29 13:40:01,319] INFO in web_server: 分析任务 b401efcc-a219-4b6c-968e-ad58fa01177a 完成
+[2025-03-29 13:42:09,906] INFO in web_server: 获取股票 300180 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 13:42:10,113] INFO in web_server: 计算股票 300180 的技术指标
+[2025-03-29 13:42:10,130] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 13:42:10,148] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 13:42:10,242] INFO in web_server: 准备分析股票: 300180
+[2025-03-29 13:42:10,242] INFO in web_server: 创建新的分析任务: d97d2afc-0384-4e99-a034-0106383d8594
+[2025-03-29 13:44:02,696] INFO in web_server: 分析任务 d97d2afc-0384-4e99-a034-0106383d8594 完成
+[2025-03-29 17:22:36,332] INFO in web_server: 获取股票 600123 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 17:22:36,717] INFO in web_server: 计算股票 600123 的技术指标
+[2025-03-29 17:22:36,745] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 17:22:36,762] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 17:22:36,851] INFO in web_server: 准备分析股票: 600123
+[2025-03-29 17:22:36,851] INFO in web_server: 创建新的分析任务: 4a70829c-c262-4fe1-83f6-4a5be899fa6e
+[2025-03-29 17:24:54,378] INFO in web_server: 分析任务 4a70829c-c262-4fe1-83f6-4a5be899fa6e 完成
+[2025-03-29 17:42:25,062] INFO in web_server: 获取股票 002427 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 17:42:25,646] INFO in web_server: 计算股票 002427 的技术指标
+[2025-03-29 17:42:25,657] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 17:42:25,662] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 17:42:25,748] INFO in web_server: 准备分析股票: 002427
+[2025-03-29 17:42:25,748] INFO in web_server: 创建新的分析任务: 4d0b419f-004a-4f39-91b1-751329336318
+[2025-03-29 17:46:50,806] INFO in web_server: 获取股票 600239 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 17:46:52,010] INFO in web_server: 计算股票 600239 的技术指标
+[2025-03-29 17:46:52,018] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 17:46:52,029] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 17:46:52,132] INFO in web_server: 准备分析股票: 600239
+[2025-03-29 17:46:52,132] INFO in web_server: 创建新的分析任务: 63852c3a-2d85-427a-8ef9-ba45af4c571e
+[2025-03-29 17:55:29,385] INFO in web_server: 获取股票 002645 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 17:55:30,113] INFO in web_server: 计算股票 002645 的技术指标
+[2025-03-29 17:55:30,132] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 17:55:30,149] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 17:55:30,251] INFO in web_server: 准备分析股票: 002645
+[2025-03-29 17:55:30,251] INFO in web_server: 创建新的分析任务: 278e813d-ff7b-4606-b8eb-5fc295aeb169
+[2025-03-29 18:01:50,814] INFO in web_server: 获取股票 002645 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 18:01:51,068] INFO in web_server: 计算股票 002645 的技术指标
+[2025-03-29 18:01:51,083] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 18:01:51,092] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 18:01:51,178] INFO in web_server: 准备分析股票: 002645
+[2025-03-29 18:01:51,178] INFO in web_server: 创建新的分析任务: 5a25889d-c00e-4200-befb-3a84df9cf285
+[2025-03-29 18:01:59,807] INFO in web_server: 获取股票 002631 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 18:01:59,959] INFO in web_server: 计算股票 002631 的技术指标
+[2025-03-29 18:01:59,977] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 18:01:59,985] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 18:02:00,064] INFO in web_server: 准备分析股票: 002631
+[2025-03-29 18:02:00,064] INFO in web_server: 创建新的分析任务: 4c44753f-082e-4471-8417-c763f128f547
+[2025-03-29 18:07:29,890] INFO in web_server: 获取股票 601811 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 18:07:30,215] INFO in web_server: 计算股票 601811 的技术指标
+[2025-03-29 18:07:30,237] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 18:07:30,255] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 18:07:30,330] INFO in web_server: 准备分析股票: 601811
+[2025-03-29 18:07:30,330] INFO in web_server: 创建新的分析任务: 800b2d3b-e339-4062-8671-dc3e0dcfceec
+[2025-03-29 18:14:26,269] INFO in web_server: 获取股票 603011 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 18:14:26,518] INFO in web_server: 计算股票 603011 的技术指标
+[2025-03-29 18:14:26,539] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 18:14:26,555] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 18:14:26,639] INFO in web_server: 准备分析股票: 603011
+[2025-03-29 18:14:26,639] INFO in web_server: 创建新的分析任务: 1eaad5f6-19c3-47de-bd22-2aabf9ed777c
+[2025-03-29 18:18:44,381] INFO in web_server: 获取股票 601595 的历史数据，市场: A, 起始日期: 20240329, 结束日期: 20250329
+[2025-03-29 18:18:44,579] INFO in web_server: 计算股票 601595 的技术指标
+[2025-03-29 18:18:44,606] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-03-29 18:18:44,626] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-03-29 18:18:44,707] INFO in web_server: 准备分析股票: 601595
+[2025-03-29 18:18:44,707] INFO in web_server: 创建新的分析任务: 81139a42-be02-4240-a753-9bd4ccc410b4
+[2025-03-29 18:21:08,689] INFO in web_server: 分析任务 81139a42-be02-4240-a753-9bd4ccc410b4 完成
+[2025-03-29 18:27:32,717] INFO in web_server: 获取指数 000001 成分股
+[2025-03-29 18:27:33,493] INFO in web_server: 找到 2249 只成分股
+[2025-03-29 18:27:33,502] WARNING in web_server: 股票列表过长 (2249只)，截取前100只
+[2025-03-29 18:28:09,093] INFO in web_server: 扫描任务 d480908f-a00c-4233-84a5-ea3b28a6ab78 完成，找到 0 只符合条件的股票
+[2025-03-29 19:31:16,283] INFO in web_server: 清理了 1 个旧的扫描任务
+[2025-04-12 10:54:28,699] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 10:54:29,328] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-04-12 10:54:29,550] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 120, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 140, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-04-12 11:02:46,239] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:02:47,015] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'NoneType' object has no attribute 'copy'
+[2025-04-12 11:02:47,025] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 134, in get_stock_data
+    self.data_cache[cache_key] = result.copy()
+                                 ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'copy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 140, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'NoneType' object has no attribute 'copy'
+
+[2025-04-12 11:03:17,344] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:03:17,650] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'NoneType' object has no attribute 'rename'
+[2025-04-12 11:03:17,658] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 109, in get_stock_data
+    df = df.rename(columns={
+         ^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'rename'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 140, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'NoneType' object has no attribute 'rename'
+
+[2025-04-12 11:05:16,565] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:05:16,901] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-04-12 11:05:16,918] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 120, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 140, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-04-12 11:06:55,745] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:06:56,150] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'date'
+[2025-04-12 11:06:56,177] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'date'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 121, in get_stock_data
+    df['date'] = pd.to_datetime(df['date'])
+                                ~~^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 141, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'date'
+
+[2025-04-12 11:08:02,530] INFO in web_server: 获取股票 600001 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:08:03,079] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'NoneType' object has no attribute 'copy'
+[2025-04-12 11:08:03,091] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 135, in get_stock_data
+    self.data_cache[cache_key] = result.copy()
+                                 ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'copy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 141, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'NoneType' object has no attribute 'copy'
+
+[2025-04-12 11:08:13,858] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:08:14,156] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'NoneType' object has no attribute 'copy'
+[2025-04-12 11:08:14,161] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 135, in get_stock_data
+    self.data_cache[cache_key] = result.copy()
+                                 ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'copy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 141, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'NoneType' object has no attribute 'copy'
+
+[2025-04-12 11:10:20,010] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:10:20,500] INFO in web_server: 计算股票 300159 的技术指标
+[2025-04-12 11:10:20,519] ERROR in web_server: 获取股票数据时出错: 'volume'
+[2025-04-12 11:10:20,535] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'volume'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 828, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 262, in calculate_indicators
+    df['Volume_MA'] = df['volume'].rolling(window=self.params['volume_ma_period']).mean()
+                      ~~^^^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'volume'
+
+[2025-04-12 11:11:03,471] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:11:03,665] INFO in web_server: 计算股票 300159 的技术指标
+[2025-04-12 11:11:03,681] ERROR in web_server: 获取股票数据时出错: 'volume'
+[2025-04-12 11:11:03,699] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'volume'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 828, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 262, in calculate_indicators
+    df['Volume_MA'] = df['volume'].rolling(window=self.params['volume_ma_period']).mean()
+                      ~~^^^^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'volume'
+
+[2025-04-12 11:13:52,193] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:13:52,733] INFO in web_server: 计算股票 300159 的技术指标
+[2025-04-12 11:13:52,749] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-12 11:13:52,777] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-12 11:13:52,896] INFO in web_server: 准备分析股票: 300159
+[2025-04-12 11:13:52,896] INFO in web_server: 创建新的分析任务: fccce997-a0c7-4268-91f3-635524f6d995
+[2025-04-12 11:14:37,170] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:14:37,707] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 11:14:37,727] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 122, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 142, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 11:15:50,074] INFO in web_server: 分析任务 fccce997-a0c7-4268-91f3-635524f6d995 完成
+[2025-04-12 11:17:23,122] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:17:23,700] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 11:17:23,725] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 123, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 143, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 11:18:49,953] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:18:50,183] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 11:18:50,235] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 124, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 144, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 11:19:59,312] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:20:00,197] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 11:20:00,212] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 124, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 144, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 11:21:43,580] INFO in web_server: 获取股票 aapl 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 11:21:43,859] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 11:21:43,873] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 125, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 145, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:09:06,029] INFO in web_server: 获取股票 aapl 的历史数据，市场: HK, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:09:06,031] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'NoneType' object has no attribute 'rename'
+[2025-04-12 17:09:06,043] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 114, in get_stock_data
+    df = df.rename(columns={
+         ^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'rename'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'NoneType' object has no attribute 'rename'
+
+[2025-04-12 17:09:31,573] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:09:42,947] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:09:42,963] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:13:55,915] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:13:56,213] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:13:56,235] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:14:52,408] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:14:52,627] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:14:52,650] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:16:30,241] INFO in web_server: 获取股票 appl 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:16:30,854] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:16:30,862] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:18:03,853] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:18:04,107] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:18:04,131] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:21:08,449] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:21:08,858] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:21:08,878] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 127, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 147, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:23:27,995] INFO in web_server: 获取股票 aapl 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:23:28,239] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 'vol'
+[2025-04-12 17:23:28,258] ERROR in web_server: Traceback (most recent call last):
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'vol'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 129, in get_stock_data
+    df['volume'] = df['vol']
+                   ~~^^^^^^^
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'vol'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 824, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 149, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 'vol'
+
+[2025-04-12 17:25:10,423] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:25:10,903] INFO in web_server: 计算股票 AAPL 的技术指标
+[2025-04-12 17:25:10,931] INFO in web_server: 将数据转换为JSON格式，行数: 251
+[2025-04-12 17:25:10,959] INFO in web_server: 数据处理完成，返回 251 条记录
+[2025-04-12 17:25:11,066] INFO in web_server: 准备分析股票: AAPL
+[2025-04-12 17:25:11,067] INFO in web_server: 创建新的分析任务: cbb1f890-3754-48e9-81a7-489ea9484043
+[2025-04-12 17:27:00,494] INFO in web_server: 分析任务 cbb1f890-3754-48e9-81a7-489ea9484043 完成
+[2025-04-12 17:29:55,344] INFO in web_server: 获取股票 00981 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:29:55,645] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-12 17:29:55,670] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-12 17:29:55,691] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-12 17:29:55,805] INFO in web_server: 准备分析股票: 00981
+[2025-04-12 17:29:55,805] INFO in web_server: 创建新的分析任务: 823c7122-919d-4a07-9878-5b7cb8268fe8
+[2025-04-12 17:30:10,484] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:30:11,060] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-12 17:30:11,077] INFO in web_server: 将数据转换为JSON格式，行数: 246
+[2025-04-12 17:30:11,089] INFO in web_server: 数据处理完成，返回 246 条记录
+[2025-04-12 17:30:11,143] INFO in web_server: 准备分析股票: 00981
+[2025-04-12 17:30:11,143] INFO in web_server: 创建新的分析任务: 259e4a2c-70c8-4114-8577-58dad2d889f7
+[2025-04-12 17:31:55,615] INFO in web_server: 分析任务 823c7122-919d-4a07-9878-5b7cb8268fe8 完成
+[2025-04-12 17:32:18,618] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:32:19,000] INFO in web_server: 计算股票 600159 的技术指标
+[2025-04-12 17:32:19,026] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-12 17:32:19,052] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-12 17:32:19,205] INFO in web_server: 准备分析股票: 600159
+[2025-04-12 17:32:19,206] INFO in web_server: 创建新的分析任务: 28705608-02d5-41fb-beb1-c94eae70f863
+[2025-04-12 17:32:35,942] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240412, 结束日期: 20250412
+[2025-04-12 17:32:36,627] INFO in web_server: 计算股票 AAPL 的技术指标
+[2025-04-12 17:32:36,654] INFO in web_server: 将数据转换为JSON格式，行数: 251
+[2025-04-12 17:32:36,670] INFO in web_server: 数据处理完成，返回 251 条记录
+[2025-04-12 17:32:36,777] INFO in web_server: 准备分析股票: AAPL
+[2025-04-12 17:32:36,777] INFO in web_server: 创建新的分析任务: 5818b65a-9c59-44ab-a88e-07b63833d763
+[2025-04-12 17:34:06,634] INFO in web_server: 分析任务 28705608-02d5-41fb-beb1-c94eae70f863 完成
+[2025-04-12 17:34:22,887] INFO in web_server: 分析任务 5818b65a-9c59-44ab-a88e-07b63833d763 完成
+[2025-04-12 18:06:12,368] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-04-12 18:06:13,924] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-04-12 18:10:25,617] INFO in web_server: 分析股票请求: ['00891'], 市场类型: HK
+[2025-04-12 18:10:26,771] ERROR in web_server: 分析股票 00891 时出错: 获取股票数据失败: 'date'
+[2025-04-12 18:13:40,932] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-04-12 18:13:43,186] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-04-13 13:46:38,784] INFO in web_server: 获取股票 中国移动 的历史数据，市场: A, 起始日期: 20240413, 结束日期: 20250413
+[2025-04-13 13:46:38,786] INFO in web_server: 计算股票 中国移动 的技术指标
+[2025-04-13 13:46:38,787] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-13 13:46:38,791] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 257, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-13 13:48:17,891] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240413, 结束日期: 20250413
+[2025-04-13 13:48:17,892] INFO in web_server: 计算股票 300059 的技术指标
+[2025-04-13 13:48:17,892] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-13 13:48:17,893] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 257, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-13 15:20:13,237] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240413, 结束日期: 20250413
+[2025-04-13 15:20:13,479] INFO in web_server: 计算股票 300059 的技术指标
+[2025-04-13 15:20:13,515] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-13 15:20:13,537] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-13 15:20:13,712] INFO in web_server: 准备分析股票: 300059
+[2025-04-13 15:20:13,713] INFO in web_server: 创建新的分析任务: 51e9b6ac-e96a-4238-8c7f-03c7c39e62ce
+[2025-04-13 15:20:49,750] INFO in web_server: 准备分析股票: 300059
+[2025-04-13 15:20:55,590] INFO in web_server: 获取股票 000653 的历史数据，市场: A, 起始日期: 20240413, 结束日期: 20250413
+[2025-04-13 15:20:55,592] INFO in web_server: 计算股票 000653 的技术指标
+[2025-04-13 15:20:55,593] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-13 15:20:55,599] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 258, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-13 15:21:07,742] INFO in web_server: 获取股票 中国移动 的历史数据，市场: A, 起始日期: 20240413, 结束日期: 20250413
+[2025-04-13 15:21:08,013] INFO in web_server: 计算股票 中国移动 的技术指标
+[2025-04-13 15:21:08,039] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-13 15:21:08,057] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-13 15:21:08,158] INFO in web_server: 准备分析股票: 中国移动
+[2025-04-13 15:21:08,159] INFO in web_server: 创建新的分析任务: 202bf6c8-5412-499d-bae8-8bca945c694e
+[2025-04-13 15:21:33,128] INFO in web_server: 获取股票 中国石油 的历史数据，市场: A, 起始日期: 20240413, 结束日期: 20250413
+[2025-04-13 15:21:33,269] INFO in web_server: 计算股票 中国石油 的技术指标
+[2025-04-13 15:21:33,305] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-13 15:21:33,321] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-13 15:21:33,422] INFO in web_server: 准备分析股票: 中国石油
+[2025-04-13 15:21:33,423] INFO in web_server: 创建新的分析任务: 2453c11a-3318-4ec3-b049-cbb6d8e2bd48
+[2025-04-13 15:21:50,136] INFO in web_server: 分析股票请求: ['中国移动'], 市场类型: A
+[2025-04-13 15:21:53,434] INFO in web_server: 分析结果: 股票=中国移动, 名称=中国移动, 行业=nan
+[2025-04-13 15:22:00,397] INFO in web_server: 分析任务 51e9b6ac-e96a-4238-8c7f-03c7c39e62ce 完成
+[2025-04-13 15:22:59,867] INFO in web_server: 分析任务 202bf6c8-5412-499d-bae8-8bca945c694e 完成
+[2025-04-13 15:23:12,637] INFO in web_server: 分析任务 2453c11a-3318-4ec3-b049-cbb6d8e2bd48 完成
+[2025-04-13 15:28:50,155] INFO in web_server: 分析股票请求: ['中国移动'], 市场类型: A
+[2025-04-13 15:28:51,466] INFO in web_server: 分析结果: 股票=中国移动, 名称=中国移动, 行业=nan
+[2025-04-13 15:29:18,775] INFO in web_server: 分析股票请求: ['300059'], 市场类型: A
+[2025-04-13 15:29:22,157] INFO in web_server: 分析结果: 股票=300059, 名称=东方财富, 行业=J 金融业
+[2025-04-13 15:29:33,646] INFO in web_server: 分析股票请求: ['东方财富'], 市场类型: A
+[2025-04-13 15:29:37,079] INFO in web_server: 分析结果: 股票=东方财富, 名称=东方财富, 行业=J 金融业
+[2025-04-13 16:25:21,338] INFO in web_server: 市场收盘时间检测到，已清理所有缓存数据
+[2025-04-13 16:35:21,340] INFO in web_server: 市场收盘时间检测到，已清理所有缓存数据
+[2025-04-19 12:36:54,117] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-04-19 12:36:54,748] ERROR in web_server: 分析股票 00981 时出错: 'NoneType' object is not subscriptable
+[2025-04-19 12:37:18,974] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 12:37:18,975] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 12:37:18,975] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-19 12:37:18,977] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 258, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-19 12:38:28,854] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 12:38:28,855] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 12:38:28,855] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-19 12:38:28,860] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 258, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-19 12:39:36,122] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 12:39:36,123] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 12:39:36,124] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-19 12:39:36,128] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 258, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-19 12:41:05,061] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 12:41:05,062] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 12:41:05,062] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-19 12:41:05,064] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 258, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-19 12:42:29,294] INFO in web_server: 获取股票 600519 的历史数据，市场: A, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 12:42:29,624] INFO in web_server: 计算股票 600519 的技术指标
+[2025-04-19 12:42:29,663] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-04-19 12:42:29,695] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-04-19 12:42:29,828] INFO in web_server: 准备分析股票: 600519
+[2025-04-19 12:42:29,828] INFO in web_server: 创建新的分析任务: c7a14a85-41cd-4208-a2eb-692f03bb1107
+[2025-04-19 12:42:49,813] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 12:42:49,815] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 12:42:49,816] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-04-19 12:42:49,824] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 258, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-04-19 12:44:45,031] INFO in web_server: 分析任务 c7a14a85-41cd-4208-a2eb-692f03bb1107 完成
+[2025-04-19 13:19:43,632] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 13:19:44,019] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 13:19:44,039] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-04-19 13:19:44,055] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-04-19 13:19:44,153] INFO in web_server: 准备分析股票: 00981
+[2025-04-19 13:19:44,154] INFO in web_server: 创建新的分析任务: ab50a377-7fa6-4581-a919-53008e31c537
+[2025-04-19 13:22:57,607] INFO in web_server: 分析任务 ab50a377-7fa6-4581-a919-53008e31c537 完成
+[2025-04-19 13:25:39,176] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 13:25:39,557] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 13:25:39,576] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-04-19 13:25:39,600] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-04-19 13:25:39,713] INFO in web_server: 准备分析股票: 00981
+[2025-04-19 13:25:39,713] INFO in web_server: 创建新的分析任务: 16759346-fc67-441b-9a8d-347dc49dde74
+[2025-04-19 13:25:45,967] INFO in web_server: 分析任务 16759346-fc67-441b-9a8d-347dc49dde74 完成
+[2025-04-19 13:41:14,483] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240419, 结束日期: 20250419
+[2025-04-19 13:41:14,906] INFO in web_server: 计算股票 00981 的技术指标
+[2025-04-19 13:41:14,912] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-04-19 13:41:14,920] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-04-19 13:41:14,988] INFO in web_server: 准备分析股票: 00981
+[2025-04-19 13:41:14,988] INFO in web_server: 创建新的分析任务: 0da7dfa0-9f03-4871-80c8-d14e0632919c
+[2025-04-19 13:41:19,484] INFO in web_server: 分析任务 0da7dfa0-9f03-4871-80c8-d14e0632919c 完成
+[2025-05-05 15:45:51,441] INFO in web_server: 分析股票请求: ['600159'], 市场类型: A
+[2025-05-05 15:45:57,248] INFO in web_server: 分析结果: 股票=600159, 名称=大龙地产, 行业=nan
+[2025-05-05 15:46:09,636] INFO in web_server: 分析股票请求: ['600159'], 市场类型: A
+[2025-05-05 15:46:13,694] INFO in web_server: 分析结果: 股票=600159, 名称=大龙地产, 行业=nan
+[2025-05-05 15:46:46,138] INFO in web_server: 分析股票请求: ['300159'], 市场类型: A
+[2025-05-05 15:46:50,370] INFO in web_server: 分析结果: 股票=300159, 名称=*ST新研, 行业=C 制造业
+[2025-05-05 15:49:27,995] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 15:49:34,087] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 15:50:23,764] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 15:50:29,108] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 15:52:40,122] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 15:52:45,769] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 15:56:00,210] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 15:56:06,668] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 16:01:46,009] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:01:47,398] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 16:02:04,933] INFO in web_server: 分析股票请求: ['300159'], 市场类型: HK
+[2025-05-05 16:02:05,854] ERROR in web_server: 分析股票 300159 时出错: 获取股票数据失败: 'date'
+[2025-05-05 16:02:17,874] INFO in web_server: 分析股票请求: ['300159'], 市场类型: A
+[2025-05-05 16:02:19,408] INFO in web_server: 分析结果: 股票=300159, 名称=*ST新研, 行业=C 制造业
+[2025-05-05 16:02:36,080] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:02:37,472] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 16:05:32,660] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:05:38,284] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=nan
+[2025-05-05 16:06:04,139] INFO in web_server: 分析股票请求: ['AAPL'], 市场类型: US
+[2025-05-05 16:06:05,620] INFO in web_server: 分析结果: 股票=AAPL, 名称=Apple Inc. Common Stock, 行业=Computer Manufacturing
+[2025-05-05 16:25:12,417] INFO in web_server: 市场收盘时间检测到，已清理所有缓存数据
+[2025-05-05 16:33:46,495] INFO in web_server: 市场收盘时间检测到，已清理所有缓存数据
+[2025-05-05 16:34:00,217] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:34:05,996] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 16:40:14,704] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:40:20,241] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 16:43:34,387] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:43:40,028] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 16:54:14,791] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:54:21,100] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 16:55:37,154] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:55:42,984] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 16:58:03,951] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 16:58:05,490] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 17:00:58,494] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 17:01:04,173] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 17:04:52,931] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 17:04:58,435] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 17:08:30,346] INFO in web_server: 分析股票请求: ['AAPL'], 市场类型: US
+[2025-05-05 17:08:37,279] INFO in web_server: 分析结果: 股票=AAPL, 名称=Apple Inc. Common Stock, 行业=Computer Manufacturing
+[2025-05-05 20:01:03,057] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 20:01:08,268] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 20:19:12,255] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 20:19:17,725] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 20:20:59,283] INFO in web_server: 获取股票 600158 的历史数据，市场: A, 起始日期: 20240505, 结束日期: 20250505
+[2025-05-05 20:20:59,598] INFO in web_server: 计算股票 600158 的技术指标
+[2025-05-05 20:20:59,620] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-05-05 20:20:59,655] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-05-05 20:20:59,841] INFO in web_server: 准备分析股票: 600158
+[2025-05-05 20:20:59,842] INFO in web_server: 创建新的分析任务: 8f92cc95-f833-4e4c-ace0-f747c909857d
+[2025-05-05 20:21:16,986] INFO in web_server: 分析任务 8f92cc95-f833-4e4c-ace0-f747c909857d 完成
+[2025-05-05 20:34:11,264] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240505, 结束日期: 20250505
+[2025-05-05 20:34:11,742] INFO in web_server: 计算股票 600159 的技术指标
+[2025-05-05 20:34:11,775] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-05-05 20:34:11,806] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-05-05 20:34:11,958] INFO in web_server: 准备分析股票: 600159
+[2025-05-05 20:34:11,959] INFO in web_server: 创建新的分析任务: 4e4b9d8d-d8c4-43d8-93dc-d44601de2450
+[2025-05-05 20:34:30,340] INFO in web_server: 分析任务 4e4b9d8d-d8c4-43d8-93dc-d44601de2450 完成
+[2025-05-05 20:37:02,160] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-05-05 20:37:08,407] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 20:45:09,138] INFO in web_server: 获取股票 600158 的历史数据，市场: A, 起始日期: 20240505, 结束日期: 20250505
+[2025-05-05 20:45:09,572] INFO in web_server: 计算股票 600158 的技术指标
+[2025-05-05 20:45:09,592] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-05-05 20:45:09,623] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-05-05 20:45:09,750] INFO in web_server: 准备分析股票: 600158
+[2025-05-05 20:45:09,750] INFO in web_server: 创建新的分析任务: d31e0f29-879e-432c-8699-2d7e9293a80d
+[2025-05-05 20:46:06,200] INFO in web_server: 分析任务 d31e0f29-879e-432c-8699-2d7e9293a80d 完成
+[2025-05-05 20:46:52,203] INFO in web_server: 分析股票请求: ['600158'], 市场类型: A
+[2025-05-05 20:46:57,073] INFO in web_server: 分析结果: 股票=600158, 名称=中体产业, 行业=未知
+[2025-05-05 21:05:10,909] INFO in web_server: 获取股票 600157 的历史数据，市场: A, 起始日期: 20240505, 结束日期: 20250505
+[2025-05-05 21:05:11,275] INFO in web_server: 计算股票 600157 的技术指标
+[2025-05-05 21:05:11,344] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-05-05 21:05:11,403] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-05-05 21:05:11,630] INFO in web_server: 准备分析股票: 600157
+[2025-05-05 21:05:11,631] INFO in web_server: 创建新的分析任务: b192f513-64ab-464a-8acd-5dcc45eaa51d
+[2025-05-05 21:06:14,321] INFO in web_server: 分析任务 b192f513-64ab-464a-8acd-5dcc45eaa51d 完成
+[2025-05-05 21:06:51,959] INFO in web_server: 分析股票请求: ['600156'], 市场类型: A
+[2025-05-05 21:06:57,009] INFO in web_server: 分析结果: 股票=600156, 名称=华升股份, 行业=未知
+[2025-05-05 21:17:20,429] INFO in web_server: 获取股票 600157 的历史数据，市场: A, 起始日期: 20240505, 结束日期: 20250505
+[2025-05-05 21:17:20,430] INFO in web_server: 计算股票 600157 的技术指标
+[2025-05-05 21:17:20,469] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-05-05 21:17:20,496] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-05-05 21:17:20,630] INFO in web_server: 准备分析股票: 600157
+[2025-05-05 21:17:20,630] INFO in web_server: 使用缓存的分析结果: 600157
+[2025-05-05 21:17:39,617] INFO in web_server: 分析股票请求: ['00981'], 市场类型: A
+[2025-05-05 21:17:44,775] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-05-05 21:18:49,653] INFO in web_server: 分析股票请求: ['300159'], 市场类型: A
+[2025-05-05 21:18:54,764] INFO in web_server: 分析结果: 股票=300159, 名称=*ST新研, 行业=C 制造业
+[2025-05-05 21:25:32,308] INFO in web_server: 分析股票请求: ['中芯国际'], 市场类型: HK
+[2025-05-05 21:25:34,355] ERROR in web_server: 分析股票 中芯国际 时出错: 获取股票数据失败: 'date'
+[2025-05-05 21:27:12,590] INFO in web_server: 分析股票请求: ['贵州茅台'], 市场类型: A
+[2025-05-05 21:27:17,936] INFO in web_server: 分析结果: 股票=贵州茅台, 名称=贵州茅台, 行业=未知
+[2025-07-20 16:37:30,326] INFO in web_server: 分析股票请求: ['中国移动'], 市场类型: A
+[2025-07-20 16:37:34,378] INFO in web_server: 分析结果: 股票=中国移动, 名称=中国移动, 行业=未知
+[2025-07-20 16:38:18,148] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 16:38:18,407] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 16:38:18,444] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-20 16:38:18,472] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-20 16:38:18,601] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 16:38:18,602] INFO in web_server: 创建新的分析任务: bb09d192-87fd-4276-9b7e-b72c76a0df1c
+[2025-07-20 16:39:46,235] INFO in web_server: 分析任务 bb09d192-87fd-4276-9b7e-b72c76a0df1c 完成
+[2025-07-20 17:09:23,729] INFO in web_server: 分析股票请求: ['300059'], 市场类型: A
+[2025-07-20 17:09:27,469] INFO in web_server: 分析结果: 股票=300059, 名称=东方财富, 行业=J 金融业
+[2025-07-20 17:10:54,331] INFO in web_server: 分析股票请求: ['600159'], 市场类型: A
+[2025-07-20 17:10:55,115] INFO in web_server: 分析结果: 股票=600159, 名称=大龙地产, 行业=未知
+[2025-07-20 17:11:43,904] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-20 17:11:44,794] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-07-20 17:25:59,479] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-20 17:26:00,280] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-07-20 17:27:34,884] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 17:27:35,515] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-20 17:27:35,554] INFO in web_server: 将数据转换为JSON格式，行数: 244
+[2025-07-20 17:27:35,573] INFO in web_server: 数据处理完成，返回 244 条记录
+[2025-07-20 17:27:35,675] INFO in web_server: 准备分析股票: 00981
+[2025-07-20 17:27:35,676] INFO in web_server: 创建新的分析任务: e5b8e314-d019-489c-9895-1640483946a7
+[2025-07-20 17:27:49,833] INFO in web_server: 分析任务 e5b8e314-d019-489c-9895-1640483946a7 完成
+[2025-07-20 18:19:35,955] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:19:36,246] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-20 18:19:36,287] INFO in web_server: 将数据转换为JSON格式，行数: 244
+[2025-07-20 18:19:36,321] INFO in web_server: 数据处理完成，返回 244 条记录
+[2025-07-20 18:19:36,440] INFO in web_server: 准备分析股票: 00981
+[2025-07-20 18:19:36,440] INFO in web_server: 创建新的分析任务: 9f32ace0-8665-4abd-9da3-bc32e204d483
+[2025-07-20 18:19:56,480] INFO in web_server: 分析任务 9f32ace0-8665-4abd-9da3-bc32e204d483 完成
+[2025-07-20 18:20:14,681] INFO in web_server: 准备分析股票: 00981
+[2025-07-20 18:20:14,681] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-20 18:21:14,923] INFO in web_server: 获取股票 APPL 的历史数据，市场: US, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:21:14,926] INFO in web_server: 计算股票 APPL 的技术指标
+[2025-07-20 18:21:14,928] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-07-20 18:21:14,940] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 830, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 282, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-07-20 18:22:07,672] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:22:08,020] INFO in web_server: 计算股票 AAPL 的技术指标
+[2025-07-20 18:22:08,034] INFO in web_server: 将数据转换为JSON格式，行数: 249
+[2025-07-20 18:22:08,049] INFO in web_server: 数据处理完成，返回 249 条记录
+[2025-07-20 18:22:08,124] INFO in web_server: 准备分析股票: AAPL
+[2025-07-20 18:22:08,125] INFO in web_server: 创建新的分析任务: 7f072d43-3449-4109-8a41-de8d9a9acf4b
+[2025-07-20 18:22:24,155] INFO in web_server: 分析任务 7f072d43-3449-4109-8a41-de8d9a9acf4b 完成
+[2025-07-20 18:22:54,856] INFO in web_server: 分析股票请求: ['AAP'], 市场类型: A
+[2025-07-20 18:23:00,184] ERROR in web_server: 分析股票 AAP 时出错: 获取股票数据失败: 无法获取股票 AAP 的数据
+[2025-07-20 18:23:06,850] INFO in web_server: 分析股票请求: ['AAPL'], 市场类型: US
+[2025-07-20 18:23:10,082] INFO in web_server: 分析结果: 股票=AAPL, 名称=Apple Inc. Common Stock, 行业=Computer Manufacturing
+[2025-07-20 18:23:44,710] INFO in web_server: 分析股票请求: ['600159'], 市场类型: A
+[2025-07-20 18:23:47,835] INFO in web_server: 分析结果: 股票=600159, 名称=大龙地产, 行业=未知
+[2025-07-20 18:25:00,420] INFO in web_server: 分析股票请求: ['00891'], 市场类型: HK
+[2025-07-20 18:25:00,424] ERROR in web_server: 分析股票 00891 时出错: 'NoneType' object is not subscriptable
+[2025-07-20 18:25:06,204] INFO in web_server: 分析股票请求: ['00891'], 市场类型: HK
+[2025-07-20 18:25:06,208] ERROR in web_server: 分析股票 00891 时出错: 'NoneType' object is not subscriptable
+[2025-07-20 18:26:46,384] INFO in web_server: 分析股票请求: ['300059'], 市场类型: A
+[2025-07-20 18:26:49,797] INFO in web_server: 分析结果: 股票=300059, 名称=东方财富, 行业=J 金融业
+[2025-07-20 18:27:45,405] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-20 18:27:48,489] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-07-20 18:28:45,723] INFO in web_server: 分析股票请求: ['AAPL'], 市场类型: US
+[2025-07-20 18:28:48,971] INFO in web_server: 分析结果: 股票=AAPL, 名称=Apple Inc. Common Stock, 行业=Computer Manufacturing
+[2025-07-20 18:33:14,889] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:33:15,168] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 18:33:15,203] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 18:33:15,226] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 18:33:15,309] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 18:33:15,310] INFO in web_server: 创建新的分析任务: e5f7ff4b-3c27-408b-89e3-2c3043c834d2
+[2025-07-20 18:33:22,337] INFO in web_server: 分析任务 e5f7ff4b-3c27-408b-89e3-2c3043c834d2 完成
+[2025-07-20 18:34:42,617] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:34:43,120] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 18:34:43,133] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 18:34:43,145] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 18:34:43,207] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 18:34:43,208] INFO in web_server: 创建新的分析任务: 03f648b2-5fb5-4e12-bfeb-97e05da05eca
+[2025-07-20 18:34:47,419] INFO in web_server: 分析任务 03f648b2-5fb5-4e12-bfeb-97e05da05eca 完成
+[2025-07-20 18:35:42,875] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:35:43,109] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 18:35:43,118] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 18:35:43,124] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 18:35:43,204] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 18:35:43,204] INFO in web_server: 创建新的分析任务: efac8f6f-a517-40af-b769-6c650deac648
+[2025-07-20 18:35:48,331] INFO in web_server: 分析任务 efac8f6f-a517-40af-b769-6c650deac648 完成
+[2025-07-20 18:36:31,266] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:36:31,723] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 18:36:31,755] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 18:36:31,787] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 18:36:31,863] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 18:36:31,863] INFO in web_server: 创建新的分析任务: 0d86ff59-10e0-4196-8ad5-cc299b279009
+[2025-07-20 18:36:37,589] INFO in web_server: 分析任务 0d86ff59-10e0-4196-8ad5-cc299b279009 完成
+[2025-07-20 18:37:34,642] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:37:34,810] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 18:37:34,835] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 18:37:34,853] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 18:37:34,939] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 18:37:34,940] INFO in web_server: 创建新的分析任务: 8ab9594a-764e-470b-8bce-9389c2f0bd1f
+[2025-07-20 18:39:53,855] INFO in web_server: 分析任务 8ab9594a-764e-470b-8bce-9389c2f0bd1f 完成
+[2025-07-20 18:41:29,460] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 18:41:29,706] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 18:41:29,729] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 18:41:29,747] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 18:41:29,828] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 18:41:29,829] INFO in web_server: 创建新的分析任务: ac8b8ed3-3648-42e2-aad0-65b507848a77
+[2025-07-20 18:41:35,982] INFO in web_server: 分析任务 ac8b8ed3-3648-42e2-aad0-65b507848a77 完成
+[2025-07-20 19:06:55,014] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 19:06:55,379] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 19:06:55,405] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 19:06:55,437] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 19:06:55,615] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 19:06:55,616] INFO in web_server: 创建新的分析任务: 5220ca2e-c031-48bf-9c5c-4bd5ef7990c1
+[2025-07-20 19:07:03,129] INFO in web_server: 分析任务 5220ca2e-c031-48bf-9c5c-4bd5ef7990c1 完成
+[2025-07-20 19:31:56,453] INFO in web_server: 获取股票 00981 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 19:32:01,794] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-20 19:32:01,831] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-20 19:32:01,872] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-20 19:32:02,090] INFO in web_server: 准备分析股票: 00981
+[2025-07-20 19:32:02,092] INFO in web_server: 创建新的分析任务: 1cbcacbe-26bb-41c1-9827-0a174285ec50
+[2025-07-20 19:32:15,577] INFO in web_server: 分析任务 1cbcacbe-26bb-41c1-9827-0a174285ec50 完成
+[2025-07-20 21:05:21,672] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 21:05:22,190] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 21:05:22,215] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 21:05:22,235] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 21:05:22,418] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 21:05:22,419] INFO in web_server: 创建新的分析任务: 4c98e23b-2777-47f3-a224-f0dff9b79a96
+[2025-07-20 21:05:27,203] INFO in web_server: 分析任务 4c98e23b-2777-47f3-a224-f0dff9b79a96 完成
+[2025-07-20 21:20:12,802] INFO in web_server: 获取股票 300059 的历史数据，市场: A, 起始日期: 20240720, 结束日期: 20250720
+[2025-07-20 21:20:13,186] INFO in web_server: 计算股票 300059 的技术指标
+[2025-07-20 21:20:13,230] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-20 21:20:13,274] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-20 21:20:13,560] INFO in web_server: 准备分析股票: 300059
+[2025-07-20 21:20:13,562] INFO in web_server: 创建新的分析任务: 9a336ab9-6e27-4492-a9f7-35272944f42a
+[2025-07-20 21:23:05,701] INFO in web_server: 分析任务 9a336ab9-6e27-4492-a9f7-35272944f42a 完成
+[2025-07-24 21:59:08,433] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240724, 结束日期: 20250724
+[2025-07-24 21:59:08,726] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-24 21:59:08,762] INFO in web_server: 将数据转换为JSON格式，行数: 246
+[2025-07-24 21:59:08,787] INFO in web_server: 数据处理完成，返回 246 条记录
+[2025-07-24 21:59:08,927] INFO in web_server: 准备分析股票: 00981
+[2025-07-24 21:59:08,928] INFO in web_server: 创建新的分析任务: 48ae4faa-0b2a-4c87-9798-c889635668ea
+[2025-07-24 22:02:27,771] INFO in web_server: 分析任务 48ae4faa-0b2a-4c87-9798-c889635668ea 完成
+[2025-07-25 21:24:49,676] INFO in web_server: 获取股票 00981 的历史数据，市场: A, 起始日期: 20240725, 结束日期: 20250725
+[2025-07-25 21:24:58,347] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-25 21:24:58,363] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-25 21:24:58,391] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-25 21:24:58,883] INFO in web_server: 准备分析股票: 00981
+[2025-07-25 21:24:58,884] INFO in web_server: 创建新的分析任务: 70551152-fab9-41fe-9254-390e10d121e8
+[2025-07-25 21:25:39,894] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20220726, 结束日期: 20250725
+[2025-07-25 21:25:40,178] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-25 21:25:40,200] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-25 21:25:40,220] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-25 21:25:40,332] INFO in web_server: 准备分析股票: 00981
+[2025-07-25 21:25:40,333] INFO in web_server: 创建新的分析任务: 9780d434-a035-4484-9f2c-7edbaa3f0522
+[2025-07-25 21:27:46,934] INFO in web_server: 分析任务 9780d434-a035-4484-9f2c-7edbaa3f0522 完成
+[2025-07-25 21:28:39,419] INFO in web_server: 分析任务 70551152-fab9-41fe-9254-390e10d121e8 完成
+[2025-07-26 09:35:12,059] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 09:35:12,534] INFO in web_server: 计算股票 600159 的技术指标
+[2025-07-26 09:35:12,565] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 09:35:12,595] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 09:35:12,788] INFO in web_server: 准备分析股票: 600159
+[2025-07-26 09:35:12,789] INFO in web_server: 创建新的分析任务: ea0c5305-563f-420a-b392-c8003a1495f9
+[2025-07-26 09:36:14,760] INFO in web_server: 分析任务 ea0c5305-563f-420a-b392-c8003a1495f9 完成
+[2025-07-26 09:37:32,143] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 09:37:32,488] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 09:37:32,516] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 09:37:32,537] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 09:37:32,728] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 09:37:32,729] INFO in web_server: 创建新的分析任务: 8a0dc470-c8e2-4d8b-bf5a-bb1612a68151
+[2025-07-26 09:38:12,412] INFO in web_server: 分析任务 8a0dc470-c8e2-4d8b-bf5a-bb1612a68151 完成
+[2025-07-26 09:52:16,789] INFO in web_server: 开始保存分析结果到数据库: TEST123, A
+[2025-07-26 09:52:16,790] INFO in web_server: 提取的信息 - 评分: 85, 建议: 买入
+[2025-07-26 09:52:16,814] INFO in web_server: 分析结果已成功保存到数据库: TEST123, ID: 1
+[2025-07-26 10:25:36,056] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 10:25:36,059] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 10:25:36,077] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 10:25:36,094] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 10:25:36,221] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 10:25:36,221] INFO in web_server: 使用缓存的分析结果: 300159
+[2025-07-26 10:48:12,855] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-26 10:48:14,001] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-07-26 11:14:01,493] INFO in web_server: 开始保存分析结果到数据库: 600519, A
+[2025-07-26 11:14:01,494] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 11:14:01,517] INFO in web_server: 分析结果已成功保存到数据库: 600519, ID: 1
+[2025-07-26 11:14:01,518] INFO in web_server: 分析完成: 600519，耗时 40.02 秒
+[2025-07-26 12:02:54,091] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 12:02:54,530] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 12:02:54,571] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-07-26 12:02:54,592] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-07-26 12:02:54,750] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 12:02:54,751] INFO in web_server: 创建新的分析任务: 40ddab40-b4a1-486c-9b33-978e67346be6
+[2025-07-26 12:03:35,841] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 12:03:35,843] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 12:03:35,880] INFO in web_server: 分析结果已成功保存到数据库: 00981, ID: 2
+[2025-07-26 12:03:35,881] INFO in web_server: 分析任务 40ddab40-b4a1-486c-9b33-978e67346be6 完成
+[2025-07-26 12:08:21,613] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 12:08:21,625] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 12:08:21,731] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-07-26 12:08:21,776] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-07-26 12:08:21,980] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 12:08:21,980] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-26 12:08:21,981] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 12:08:21,981] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 12:08:21,983] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 12:26:19,538] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 12:26:19,610] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 12:26:20,048] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-07-26 12:26:20,232] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-07-26 12:26:20,680] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 12:26:20,690] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-26 12:26:20,697] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 12:26:20,710] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 12:26:20,759] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 16:30:57,004] INFO in web_server: 市场收盘时间检测到，已清理所有缓存数据
+[2025-07-26 17:02:10,863] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 17:02:11,391] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:02:11,429] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-07-26 17:02:11,450] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-07-26 17:02:11,611] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:02:11,612] INFO in web_server: 创建新的分析任务: 04e50f6b-d75a-42f5-ab5b-0045fb81e200
+[2025-07-26 17:02:27,459] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20220727, 结束日期: 20250726
+[2025-07-26 17:02:27,760] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:02:27,843] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-26 17:02:27,872] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-26 17:02:28,116] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:02:28,432] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:02:28,651] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:02:47,305] INFO in web_server: 获取股票 00981 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 17:02:52,531] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:02:52,556] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-26 17:02:52,592] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-26 17:02:52,747] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:02:52,748] INFO in web_server: 创建新的分析任务: 160ea9c5-61b2-4209-ac0d-36e9517228ae
+[2025-07-26 17:02:56,866] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 17:02:56,867] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:02:56,909] INFO in web_server: 分析结果已成功保存到数据库: 00981, ID: 3
+[2025-07-26 17:02:56,914] INFO in web_server: 分析任务 04e50f6b-d75a-42f5-ab5b-0045fb81e200 完成
+[2025-07-26 17:03:14,314] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:03:14,316] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-26 17:03:14,317] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 17:03:14,318] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:03:14,321] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 17:03:24,491] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20250626, 结束日期: 20250726
+[2025-07-26 17:03:24,774] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:03:24,796] INFO in web_server: 将数据转换为JSON格式，行数: 21
+[2025-07-26 17:03:24,810] INFO in web_server: 数据处理完成，返回 21 条记录
+[2025-07-26 17:03:24,878] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:03:24,879] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-26 17:03:24,880] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 17:03:24,881] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:03:24,883] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 17:03:33,850] INFO in web_server: 开始保存分析结果到数据库: 00981, A
+[2025-07-26 17:03:33,851] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:03:33,866] INFO in web_server: 分析结果已成功保存到数据库: 00981, ID: 4
+[2025-07-26 17:03:33,867] INFO in web_server: 分析任务 160ea9c5-61b2-4209-ac0d-36e9517228ae 完成
+[2025-07-26 17:05:00,107] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20250427, 结束日期: 20250726
+[2025-07-26 17:05:01,000] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:05:01,043] INFO in web_server: 将数据转换为JSON格式，行数: 62
+[2025-07-26 17:05:01,081] INFO in web_server: 数据处理完成，返回 62 条记录
+[2025-07-26 17:05:01,194] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:05:01,198] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-26 17:05:01,199] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 17:05:01,201] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:05:01,222] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 17:19:42,070] INFO in web_server: 获取股票 00981 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 17:19:50,153] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:19:50,188] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-26 17:19:50,240] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-26 17:19:50,405] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:19:50,406] INFO in web_server: 创建新的分析任务: 70d1b652-b3ee-4de4-88f6-e3d8ca10742a
+[2025-07-26 17:19:57,311] INFO in web_server: 获取股票 00981 的历史数据，市场: A, 起始日期: 20250626, 结束日期: 20250726
+[2025-07-26 17:20:01,527] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20250626, 结束日期: 20250726
+[2025-07-26 17:20:01,755] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:20:01,782] INFO in web_server: 将数据转换为JSON格式，行数: 21
+[2025-07-26 17:20:01,790] INFO in web_server: 数据处理完成，返回 21 条记录
+[2025-07-26 17:20:01,987] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:20:01,988] INFO in web_server: 创建新的分析任务: 2e4ae7a9-79a7-41a1-9172-f450f2cdfd3c
+[2025-07-26 17:20:02,982] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:20:03,027] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-26 17:20:03,043] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-26 17:20:03,337] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:20:37,605] INFO in web_server: 开始保存分析结果到数据库: 00981, A
+[2025-07-26 17:20:37,605] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:20:37,609] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 17:20:37,609] INFO in web_server: 分析任务 70d1b652-b3ee-4de4-88f6-e3d8ca10742a 完成
+[2025-07-26 17:20:44,044] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 17:20:44,045] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:20:44,048] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 17:20:44,051] INFO in web_server: 分析任务 2e4ae7a9-79a7-41a1-9172-f450f2cdfd3c 完成
+[2025-07-26 17:20:50,691] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 17:20:50,972] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-26 17:20:50,995] INFO in web_server: 将数据转换为JSON格式，行数: 245
+[2025-07-26 17:20:51,012] INFO in web_server: 数据处理完成，返回 245 条记录
+[2025-07-26 17:20:51,225] INFO in web_server: 准备分析股票: 00981
+[2025-07-26 17:20:51,226] INFO in web_server: 使用缓存的分析结果: 00981
+[2025-07-26 17:20:51,227] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-26 17:20:51,227] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:20:51,229] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 00981
+[2025-07-26 17:22:16,399] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 17:22:16,688] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 17:22:16,739] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 17:22:16,763] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 17:22:16,878] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 17:22:16,879] INFO in web_server: 创建新的分析任务: e32d167d-872a-4b1d-b601-fc775cec0e48
+[2025-07-26 17:22:56,483] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 17:22:56,484] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:22:56,538] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 4
+[2025-07-26 17:22:56,548] INFO in web_server: 分析任务 e32d167d-872a-4b1d-b601-fc775cec0e48 完成
+[2025-07-26 17:24:37,948] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 17:24:38,257] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 17:24:38,295] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 17:24:38,320] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 17:24:38,469] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 17:24:38,470] INFO in web_server: 创建新的分析任务: 394d139a-d262-45ca-bfd6-5831c470005d
+[2025-07-26 17:25:14,694] INFO in web_server: 开始保存分析结果到数据库: 000028, A
+[2025-07-26 17:25:14,696] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:25:14,730] INFO in web_server: 分析结果已成功保存到数据库: 000028, ID: 5
+[2025-07-26 17:25:14,732] INFO in web_server: 分析任务 394d139a-d262-45ca-bfd6-5831c470005d 完成
+[2025-07-26 17:26:37,466] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20250626, 结束日期: 20250726
+[2025-07-26 17:26:37,777] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 17:26:37,812] INFO in web_server: 将数据转换为JSON格式，行数: 22
+[2025-07-26 17:26:37,832] INFO in web_server: 数据处理完成，返回 22 条记录
+[2025-07-26 17:26:37,880] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 17:26:37,881] INFO in web_server: 使用缓存的分析结果: 000028
+[2025-07-26 17:26:37,881] INFO in web_server: 开始保存分析结果到数据库: 000028, A
+[2025-07-26 17:26:37,882] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 17:26:37,884] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 000028
+[2025-07-26 18:09:11,685] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:09:12,123] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 18:09:12,154] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:09:12,183] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:09:12,528] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 18:09:12,529] INFO in web_server: 创建新的分析任务: ff0357ca-a1a9-4941-9a2b-8fb065824332
+[2025-07-26 18:09:54,428] INFO in web_server: 开始保存分析结果到数据库: 000028, A
+[2025-07-26 18:09:54,429] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:09:54,447] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 000028
+[2025-07-26 18:09:54,449] INFO in web_server: 分析任务 ff0357ca-a1a9-4941-9a2b-8fb065824332 完成
+[2025-07-26 18:29:18,202] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:29:18,206] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 18:29:18,386] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:29:18,585] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:29:19,139] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 18:29:19,140] INFO in web_server: 使用缓存的分析结果: 000028
+[2025-07-26 18:29:19,140] INFO in web_server: 开始保存分析结果到数据库: 000028, A
+[2025-07-26 18:29:19,141] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:29:19,168] INFO in web_server: 分析结果已成功保存到数据库: 000028, ID: 6
+[2025-07-26 18:29:51,261] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:29:51,622] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 18:29:51,711] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:29:51,754] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:29:52,145] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 18:29:52,146] INFO in web_server: 创建新的分析任务: 3d45c7bd-59b3-44bb-a7af-7a011ee10542
+[2025-07-26 18:30:08,845] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20220727, 结束日期: 20250726
+[2025-07-26 18:30:09,138] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 18:30:09,183] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-26 18:30:09,202] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-26 18:30:09,556] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 18:30:13,085] INFO in web_server: 获取股票 000028 的历史数据，市场: A, 起始日期: 20250427, 结束日期: 20250726
+[2025-07-26 18:30:13,315] INFO in web_server: 计算股票 000028 的技术指标
+[2025-07-26 18:30:13,358] INFO in web_server: 将数据转换为JSON格式，行数: 61
+[2025-07-26 18:30:13,372] INFO in web_server: 数据处理完成，返回 61 条记录
+[2025-07-26 18:30:13,511] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 18:30:21,544] INFO in web_server: 准备分析股票: 000028
+[2025-07-26 18:30:27,920] INFO in web_server: 开始保存分析结果到数据库: 000028, A
+[2025-07-26 18:30:27,922] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:30:27,948] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 000028
+[2025-07-26 18:30:27,949] INFO in web_server: 分析任务 3d45c7bd-59b3-44bb-a7af-7a011ee10542 完成
+[2025-07-26 18:30:38,835] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:30:39,127] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:30:39,198] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:30:39,215] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:30:39,526] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:30:39,527] INFO in web_server: 创建新的分析任务: 67ae1a39-36f4-4fe2-a860-f57b7fa9fb64
+[2025-07-26 18:31:25,743] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:31:25,743] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:31:25,760] INFO in web_server: 分析结果已成功保存到数据库: 300081, ID: 7
+[2025-07-26 18:31:25,760] INFO in web_server: 分析任务 67ae1a39-36f4-4fe2-a860-f57b7fa9fb64 完成
+[2025-07-26 18:33:08,355] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:33:19,632] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:33:19,670] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:33:19,695] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:33:20,051] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:33:20,052] INFO in web_server: 创建新的分析任务: 1e6127fe-db77-44e4-b51a-665b4c77c856
+[2025-07-26 18:33:49,742] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20250427, 结束日期: 20250726
+[2025-07-26 18:33:50,047] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:33:50,087] INFO in web_server: 将数据转换为JSON格式，行数: 61
+[2025-07-26 18:33:50,106] INFO in web_server: 数据处理完成，返回 61 条记录
+[2025-07-26 18:33:50,292] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:34:07,358] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:34:07,360] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:34:07,397] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 300081
+[2025-07-26 18:34:07,402] INFO in web_server: 分析任务 1e6127fe-db77-44e4-b51a-665b4c77c856 完成
+[2025-07-26 18:34:15,160] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20250626, 结束日期: 20250726
+[2025-07-26 18:34:15,874] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:34:15,893] INFO in web_server: 将数据转换为JSON格式，行数: 22
+[2025-07-26 18:34:15,904] INFO in web_server: 数据处理完成，返回 22 条记录
+[2025-07-26 18:34:15,979] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:34:15,980] INFO in web_server: 使用缓存的分析结果: 300081
+[2025-07-26 18:34:15,980] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:34:15,981] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:34:15,984] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 300081
+[2025-07-26 18:34:19,865] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20250127, 结束日期: 20250726
+[2025-07-26 18:34:20,100] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:34:20,147] INFO in web_server: 将数据转换为JSON格式，行数: 119
+[2025-07-26 18:34:20,166] INFO in web_server: 数据处理完成，返回 119 条记录
+[2025-07-26 18:34:20,595] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:34:20,596] INFO in web_server: 使用缓存的分析结果: 300081
+[2025-07-26 18:34:20,596] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:34:20,597] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:34:20,599] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 300081
+[2025-07-26 18:34:39,288] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20220727, 结束日期: 20250726
+[2025-07-26 18:34:39,670] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:34:39,723] INFO in web_server: 将数据转换为JSON格式，行数: 550
+[2025-07-26 18:34:39,753] INFO in web_server: 数据处理完成，返回 550 条记录
+[2025-07-26 18:34:40,477] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:34:40,478] INFO in web_server: 使用缓存的分析结果: 300081
+[2025-07-26 18:34:40,478] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:34:40,479] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:34:40,481] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 300081
+[2025-07-26 18:35:33,980] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:35:33,981] INFO in web_server: 使用缓存的分析结果: 300081
+[2025-07-26 18:35:33,981] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:35:33,982] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:35:33,984] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 300081
+[2025-07-26 18:35:41,567] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:35:41,568] INFO in web_server: 使用缓存的分析结果: 300081
+[2025-07-26 18:35:41,569] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:35:41,569] INFO in web_server: 提取的信息 - 评分: 0, 建议: 建议减仓
+[2025-07-26 18:35:41,572] INFO in web_server: 最近1小时内已有分析记录，跳过保存: 300081
+[2025-07-26 18:41:52,368] INFO in web_server: 获取股票 300081 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:41:52,919] INFO in web_server: 计算股票 300081 的技术指标
+[2025-07-26 18:41:52,978] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:41:52,995] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:41:53,526] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:41:53,527] INFO in web_server: 创建新的分析任务: f70e1864-9f13-4fea-8e5a-06bc43f245ac
+[2025-07-26 18:42:07,849] INFO in web_server: 准备分析股票: 300081
+[2025-07-26 18:42:38,756] INFO in web_server: 开始保存分析结果到数据库: 300081, A
+[2025-07-26 18:42:38,757] INFO in web_server: 提取的信息 - 评分: 18, 建议: 建议减仓
+[2025-07-26 18:42:38,773] INFO in web_server: 删除股票 300081 的 1 条旧记录
+[2025-07-26 18:42:38,827] INFO in web_server: 分析结果已成功保存到数据库: 300081, ID: 7
+[2025-07-26 18:42:38,830] INFO in web_server: 分析任务 f70e1864-9f13-4fea-8e5a-06bc43f245ac 完成
+[2025-07-26 18:51:03,013] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:51:03,227] INFO in web_server: 计算股票 600159 的技术指标
+[2025-07-26 18:51:03,267] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:51:03,294] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:51:03,695] INFO in web_server: 准备分析股票: 600159
+[2025-07-26 18:51:03,696] INFO in web_server: 创建新的分析任务: 5f6c6b5f-e982-4121-bd4a-9ea8b9e23063
+[2025-07-26 18:52:01,784] INFO in web_server: 开始保存分析结果到数据库: 600159, A
+[2025-07-26 18:52:01,785] INFO in web_server: 提取的信息 - 评分: 13, 建议: 建议卖出
+[2025-07-26 18:52:01,893] INFO in web_server: 分析结果已成功保存到数据库: 600159, ID: 8
+[2025-07-26 18:52:01,896] INFO in web_server: 分析任务 5f6c6b5f-e982-4121-bd4a-9ea8b9e23063 完成
+[2025-07-26 18:54:54,058] INFO in web_server: 获取股票 600891 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:54:54,064] INFO in web_server: 计算股票 600891 的技术指标
+[2025-07-26 18:54:54,066] ERROR in web_server: 获取股票数据时出错: 'NoneType' object is not subscriptable
+[2025-07-26 18:54:54,089] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 861, in get_stock_data
+    df = analyzer.calculate_indicators(df)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 282, in calculate_indicators
+    df['MA5'] = self.calculate_ema(df['close'], self.params['ma_periods']['short'])
+                                   ~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[2025-07-26 18:55:12,622] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 18:55:13,385] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 18:55:13,446] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 18:55:13,461] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 18:55:13,833] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 18:55:13,834] INFO in web_server: 创建新的分析任务: 4f04431e-b201-4b2b-857b-35ef4bb90ec8
+[2025-07-26 18:55:49,449] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 18:55:49,450] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 18:55:49,472] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 9
+[2025-07-26 18:55:49,473] INFO in web_server: 分析任务 4f04431e-b201-4b2b-857b-35ef4bb90ec8 完成
+[2025-07-26 19:30:51,190] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 19:30:51,501] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 19:30:51,571] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 19:30:51,601] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 19:30:52,024] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 19:30:52,025] INFO in web_server: 创建新的分析任务: 9f1ae38c-5361-4f57-a729-0b1e93e660ec
+[2025-07-26 19:31:28,737] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 19:31:28,738] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 19:31:28,754] INFO in web_server: 删除股票 600125 的 1 条旧记录
+[2025-07-26 19:31:28,787] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 9
+[2025-07-26 19:31:28,789] INFO in web_server: 分析任务 9f1ae38c-5361-4f57-a729-0b1e93e660ec 完成
+[2025-07-26 19:36:10,678] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 19:36:11,030] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 19:36:11,076] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 19:36:11,107] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 19:36:11,511] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 19:36:11,512] INFO in web_server: 创建新的分析任务: 3984ba30-1a7f-4d6f-ada0-a5b55d4c66a2
+[2025-07-26 19:36:52,067] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 19:36:52,072] INFO in web_server: 提取的信息 - 评分: 15, 建议: 建议减仓
+[2025-07-26 19:36:52,119] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 10
+[2025-07-26 19:36:52,123] INFO in web_server: 分析任务 3984ba30-1a7f-4d6f-ada0-a5b55d4c66a2 完成
+[2025-07-26 20:15:18,530] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 20:15:18,903] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 20:15:18,958] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 20:15:18,982] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 20:15:19,417] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 20:15:19,418] INFO in web_server: 创建新的分析任务: 59355dc5-4604-4709-a22d-aaeb6579d17c
+[2025-07-26 20:16:04,017] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 20:16:04,018] INFO in web_server: 提取的信息 - 评分: 15, 建议: 建议减仓
+[2025-07-26 20:16:04,047] INFO in web_server: 删除股票 300159 的 1 条旧记录
+[2025-07-26 20:16:04,072] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 10
+[2025-07-26 20:16:04,073] INFO in web_server: 分析任务 59355dc5-4604-4709-a22d-aaeb6579d17c 完成
+[2025-07-26 20:32:03,239] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 20:32:03,676] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 20:32:03,727] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 20:32:03,760] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 20:32:04,190] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 20:32:04,191] INFO in web_server: 创建新的分析任务: 6a9e6824-01cd-4065-a421-14e0e0580fbb
+[2025-07-26 20:32:53,107] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 20:32:53,108] INFO in web_server: 提取的信息 - 评分: 15, 建议: 建议减仓
+[2025-07-26 20:32:53,137] INFO in web_server: 删除股票 300159 的 1 条旧记录
+[2025-07-26 20:32:53,171] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 10
+[2025-07-26 20:32:53,173] INFO in web_server: 分析任务 6a9e6824-01cd-4065-a421-14e0e0580fbb 完成
+[2025-07-26 20:37:40,363] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 20:37:40,727] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 20:37:40,795] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 20:37:40,836] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 20:37:41,308] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 20:37:41,309] INFO in web_server: 创建新的分析任务: 5ec779d9-e829-4f2e-92a1-325c678313d6
+[2025-07-26 20:37:51,511] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 20:38:32,791] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 20:38:32,792] INFO in web_server: 提取的信息 - 评分: 15, 建议: 建议减仓
+[2025-07-26 20:38:32,807] INFO in web_server: 删除股票 300159 的 1 条旧记录
+[2025-07-26 20:38:32,837] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 10
+[2025-07-26 20:38:32,839] INFO in web_server: 分析任务 5ec779d9-e829-4f2e-92a1-325c678313d6 完成
+[2025-07-26 20:48:52,663] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 20:48:52,979] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 20:48:53,065] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 20:48:53,095] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 20:48:53,954] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 20:48:53,970] INFO in web_server: 创建新的分析任务: fc464e51-b36e-4724-b67c-0d22fddb5b84
+[2025-07-26 20:49:25,747] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 20:49:37,026] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 20:49:37,028] INFO in web_server: 提取的信息 - 评分: 15, 建议: 建议减仓
+[2025-07-26 20:49:37,067] INFO in web_server: 删除股票 300159 的 1 条旧记录
+[2025-07-26 20:49:37,115] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 10
+[2025-07-26 20:49:37,117] INFO in web_server: 分析任务 fc464e51-b36e-4724-b67c-0d22fddb5b84 完成
+[2025-07-26 21:04:51,288] INFO in web_server: 获取股票 300159 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:04:51,961] INFO in web_server: 计算股票 300159 的技术指标
+[2025-07-26 21:04:51,993] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-26 21:04:52,018] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-26 21:04:52,335] INFO in web_server: 准备分析股票: 300159
+[2025-07-26 21:04:52,335] INFO in web_server: 创建新的分析任务: 0e54177c-4670-465b-88aa-0fedc26566df
+[2025-07-26 21:05:35,285] INFO in web_server: 开始保存分析结果到数据库: 300159, A
+[2025-07-26 21:05:35,288] INFO in web_server: 提取的信息 - 评分: 15, 建议: 建议减仓
+[2025-07-26 21:05:35,298] INFO in web_server: 删除股票 300159 的 1 条旧记录
+[2025-07-26 21:05:35,380] INFO in web_server: 分析结果已成功保存到数据库: 300159, ID: 10
+[2025-07-26 21:05:35,381] INFO in web_server: 分析任务 0e54177c-4670-465b-88aa-0fedc26566df 完成
+[2025-07-26 21:05:37,849] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:05:38,608] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 21:05:38,641] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 21:05:38,667] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 21:05:39,098] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 21:05:39,099] INFO in web_server: 创建新的分析任务: bc4d620a-5f1e-4be3-82d3-a62c866ba1fd
+[2025-07-26 21:06:20,877] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 21:06:20,877] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 21:06:20,879] INFO in web_server: 删除股票 600125 的 1 条旧记录
+[2025-07-26 21:06:20,890] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 11
+[2025-07-26 21:06:20,891] INFO in web_server: 分析任务 bc4d620a-5f1e-4be3-82d3-a62c866ba1fd 完成
+[2025-07-26 21:11:13,991] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:11:14,386] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 21:11:14,433] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 21:11:14,465] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 21:11:14,945] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 21:11:14,946] INFO in web_server: 创建新的分析任务: 97d5d97b-1f37-4f5a-b1d6-ca8b52adc1ab
+[2025-07-26 21:11:57,457] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 21:11:57,457] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 21:11:57,462] INFO in web_server: 删除股票 600125 的 1 条旧记录
+[2025-07-26 21:11:57,476] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 11
+[2025-07-26 21:11:57,478] INFO in web_server: 分析任务 97d5d97b-1f37-4f5a-b1d6-ca8b52adc1ab 完成
+[2025-07-26 21:15:15,615] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:15:15,876] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 21:15:15,905] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 21:15:15,929] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 21:15:16,353] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 21:15:16,354] INFO in web_server: 创建新的分析任务: 49293865-f064-440d-b8cd-213a68b6d1ae
+[2025-07-26 21:16:01,353] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 21:16:01,353] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 21:16:01,360] INFO in web_server: 删除股票 600125 的 1 条旧记录
+[2025-07-26 21:16:01,384] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 11
+[2025-07-26 21:16:01,385] INFO in web_server: 分析任务 49293865-f064-440d-b8cd-213a68b6d1ae 完成
+[2025-07-26 21:27:17,483] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:27:17,893] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 21:27:17,949] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 21:27:17,979] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 21:27:18,515] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 21:27:18,516] INFO in web_server: 创建新的分析任务: 4909cd83-bddd-4746-8d7b-f093bd579627
+[2025-07-26 21:28:02,797] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 21:28:02,798] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 21:28:02,825] INFO in web_server: 删除股票 600125 的 1 条旧记录
+[2025-07-26 21:28:02,859] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 11
+[2025-07-26 21:28:02,860] INFO in web_server: 分析任务 4909cd83-bddd-4746-8d7b-f093bd579627 完成
+[2025-07-26 21:49:19,289] INFO in web_server: 获取股票 600125 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:49:19,574] INFO in web_server: 计算股票 600125 的技术指标
+[2025-07-26 21:49:19,587] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 21:49:19,599] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 21:49:21,509] INFO in web_server: 准备分析股票: 600125
+[2025-07-26 21:49:21,509] INFO in web_server: 创建新的分析任务: cbdc0b58-b32b-45d5-9735-0fdd8dcacb42
+[2025-07-26 21:49:57,132] INFO in web_server: 开始保存分析结果到数据库: 600125, A
+[2025-07-26 21:49:57,133] INFO in web_server: 提取的信息 - 评分: 14, 建议: 建议卖出
+[2025-07-26 21:49:57,141] INFO in web_server: 删除股票 600125 的 1 条旧记录
+[2025-07-26 21:49:57,166] INFO in web_server: 分析结果已成功保存到数据库: 600125, ID: 11
+[2025-07-26 21:49:57,168] INFO in web_server: 分析任务 cbdc0b58-b32b-45d5-9735-0fdd8dcacb42 完成
+[2025-07-26 21:55:40,967] INFO in web_server: 获取股票 中国电建 的历史数据，市场: A, 起始日期: 20240726, 结束日期: 20250726
+[2025-07-26 21:55:41,326] INFO in web_server: 计算股票 中国电建 的技术指标
+[2025-07-26 21:55:41,382] INFO in web_server: 将数据转换为JSON格式，行数: 242
+[2025-07-26 21:55:41,402] INFO in web_server: 数据处理完成，返回 242 条记录
+[2025-07-26 21:55:41,912] INFO in web_server: 准备分析股票: 中国电建
+[2025-07-26 21:55:41,914] INFO in web_server: 创建新的分析任务: b64c7d02-372e-4fdd-89ff-472326a87ad6
+[2025-07-26 21:56:18,006] INFO in web_server: 开始保存分析结果到数据库: 中国电建, A
+[2025-07-26 21:56:18,008] INFO in web_server: 提取的信息 - 评分: 11, 建议: 建议卖出
+[2025-07-26 21:56:18,028] INFO in web_server: 分析结果已成功保存到数据库: 中国电建, ID: 12
+[2025-07-26 21:56:18,030] INFO in web_server: 分析任务 b64c7d02-372e-4fdd-89ff-472326a87ad6 完成
+[2025-07-26 21:58:51,491] INFO in web_server: 分析股票请求: ['特高压'], 市场类型: A
+[2025-07-26 21:58:51,503] ERROR in web_server: 分析股票 特高压 时出错: 'NoneType' object is not subscriptable
+[2025-07-26 21:59:06,078] INFO in web_server: 分析股票请求: ['特变电工'], 市场类型: A
+[2025-07-26 21:59:10,069] INFO in web_server: 分析结果: 股票=特变电工, 名称=特变电工, 行业=未知
+[2025-07-27 09:35:55,325] INFO in web_server: 分析股票请求: ['300081'], 市场类型: A
+[2025-07-27 09:35:58,635] INFO in web_server: 分析结果: 股票=300081, 名称=恒信东方, 行业=I 信息技术
+[2025-07-27 10:27:12,549] INFO in web_server: 分析股票请求: ['300081'], 市场类型: A
+[2025-07-27 10:27:13,785] INFO in web_server: 分析结果: 股票=300081, 名称=恒信东方, 行业=I 信息技术
+[2025-07-27 10:33:12,773] INFO in web_server: 分析股票请求: ['300081'], 市场类型: A
+[2025-07-27 10:33:16,070] INFO in web_server: 分析结果: 股票=300081, 名称=恒信东方, 行业=I 信息技术
+[2025-07-27 10:35:11,418] INFO in web_server: 分析股票请求: ['300082'], 市场类型: A
+[2025-07-27 10:35:12,485] INFO in web_server: 分析结果: 股票=300082, 名称=奥克股份, 行业=C 制造业
+[2025-07-27 10:36:29,911] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-27 10:36:33,200] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-07-27 11:10:45,993] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-27 11:10:49,611] INFO in web_server: 分析结果: 股票=00981, 名称=中芯國際, 行业=未知
+[2025-07-27 16:12:18,355] INFO in web_server: 获取股票 浙江鼎力 的历史数据，市场: A, 起始日期: 20240727, 结束日期: 20250727
+[2025-07-27 16:12:19,049] INFO in web_server: 计算股票 浙江鼎力 的技术指标
+[2025-07-27 16:12:19,120] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-27 16:12:19,152] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-27 16:12:19,609] INFO in web_server: 准备分析股票: 浙江鼎力
+[2025-07-27 16:12:19,610] INFO in web_server: 创建新的分析任务: 0bd12227-7808-4ca1-8b51-40d2a9491c2c
+[2025-07-27 16:13:20,424] INFO in web_server: 开始保存分析结果到数据库: 浙江鼎力, A
+[2025-07-27 16:13:20,424] INFO in web_server: 提取的信息 - 评分: 17, 建议: 建议减仓
+[2025-07-27 16:13:20,509] INFO in web_server: 分析结果已成功保存到数据库: 浙江鼎力, ID: 13
+[2025-07-27 16:13:20,523] INFO in web_server: 分析任务 0bd12227-7808-4ca1-8b51-40d2a9491c2c 完成
+[2025-07-27 16:27:51,070] INFO in web_server: 市场收盘时间检测到，已清理所有缓存数据
+[2025-07-27 17:54:56,837] INFO in web_server: 获取股票 AAPL 的历史数据，市场: A, 起始日期: 20240727, 结束日期: 20250727
+[2025-07-27 17:54:59,069] ERROR in web_server: 获取股票数据时出错: 获取股票数据失败: 无法获取股票 AAPL 的数据
+[2025-07-27 17:54:59,080] ERROR in web_server: Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 143, in get_stock_data
+    raise ValueError(f"无法获取股票 {stock_code} 的数据")
+ValueError: 无法获取股票 AAPL 的数据
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\web_server.py", line 857, in get_stock_data
+    df = analyzer.get_stock_data(stock_code, market_type, start_date, end_date)
+  File "D:\pythonTtest\TDXPystock\StockAnal_Sys\stock_analyzer.py", line 179, in get_stock_data
+    raise Exception(f"获取股票数据失败: {e}")
+Exception: 获取股票数据失败: 无法获取股票 AAPL 的数据
+
+[2025-07-27 17:55:14,182] INFO in web_server: 获取股票 AAPL 的历史数据，市场: US, 起始日期: 20240727, 结束日期: 20250727
+[2025-07-27 17:55:14,481] INFO in web_server: 计算股票 AAPL 的技术指标
+[2025-07-27 17:55:14,525] INFO in web_server: 将数据转换为JSON格式，行数: 249
+[2025-07-27 17:55:14,559] INFO in web_server: 数据处理完成，返回 249 条记录
+[2025-07-27 17:55:14,997] INFO in web_server: 准备分析股票: AAPL
+[2025-07-27 17:55:14,998] INFO in web_server: 创建新的分析任务: 8f2c5125-5c09-43bc-92d6-12a518c416c4
+[2025-07-27 17:55:29,802] INFO in web_server: 获取股票 00981 的历史数据，市场: HK, 起始日期: 20240727, 结束日期: 20250727
+[2025-07-27 17:55:30,180] INFO in web_server: 计算股票 00981 的技术指标
+[2025-07-27 17:55:30,218] INFO in web_server: 将数据转换为JSON格式，行数: 244
+[2025-07-27 17:55:30,240] INFO in web_server: 数据处理完成，返回 244 条记录
+[2025-07-27 17:55:30,707] INFO in web_server: 准备分析股票: 00981
+[2025-07-27 17:55:30,708] INFO in web_server: 创建新的分析任务: 2ffe8e0b-410b-4333-b846-602473634bdd
+[2025-07-27 17:55:43,401] INFO in web_server: 获取股票 600159 的历史数据，市场: A, 起始日期: 20240727, 结束日期: 20250727
+[2025-07-27 17:55:43,763] INFO in web_server: 计算股票 600159 的技术指标
+[2025-07-27 17:55:43,788] INFO in web_server: 将数据转换为JSON格式，行数: 241
+[2025-07-27 17:55:43,801] INFO in web_server: 数据处理完成，返回 241 条记录
+[2025-07-27 17:55:44,300] INFO in web_server: 准备分析股票: 600159
+[2025-07-27 17:55:44,302] INFO in web_server: 创建新的分析任务: d6ee4263-e2eb-49d5-a047-a0bc10f79bef
+[2025-07-27 17:56:04,253] INFO in web_server: 开始保存分析结果到数据库: AAPL, US
+[2025-07-27 17:56:04,253] INFO in web_server: 提取的信息 - 评分: 21, 建议: 建议减仓 （财报季临近，波动可能加大，建议适当控制仓位）
+[2025-07-27 17:56:04,271] INFO in web_server: 分析结果已成功保存到数据库: AAPL, ID: 14
+[2025-07-27 17:56:04,272] INFO in web_server: 分析任务 8f2c5125-5c09-43bc-92d6-12a518c416c4 完成
+[2025-07-27 17:56:21,443] INFO in web_server: 开始保存分析结果到数据库: 00981, HK
+[2025-07-27 17:56:21,445] INFO in web_server: 提取的信息 - 评分: 17, 建议: 建议减仓
+[2025-07-27 17:56:21,468] INFO in web_server: 分析结果已成功保存到数据库: 00981, ID: 15
+[2025-07-27 17:56:21,471] INFO in web_server: 分析任务 2ffe8e0b-410b-4333-b846-602473634bdd 完成
+[2025-07-27 17:56:30,762] INFO in web_server: 分析股票请求: ['00981'], 市场类型: A
+[2025-07-27 17:56:33,276] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
+[2025-07-27 17:56:38,625] INFO in web_server: 开始保存分析结果到数据库: 600159, A
+[2025-07-27 17:56:38,627] INFO in web_server: 提取的信息 - 评分: 13, 建议: 建议卖出
+[2025-07-27 17:56:38,633] INFO in web_server: 删除股票 600159 的 1 条旧记录
+[2025-07-27 17:56:38,666] INFO in web_server: 分析结果已成功保存到数据库: 600159, ID: 16
+[2025-07-27 17:56:38,668] INFO in web_server: 分析任务 d6ee4263-e2eb-49d5-a047-a0bc10f79bef 完成
+[2025-07-27 17:56:38,704] INFO in web_server: 分析股票请求: ['00981'], 市场类型: HK
+[2025-07-27 17:56:39,459] INFO in web_server: 分析结果: 股票=00981, 名称=未知, 行业=未知
